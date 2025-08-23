@@ -9,6 +9,11 @@ export default function AppProvider({ children }) {
     const [messages, setMessages] = useState([]);
     const [Auth, setAuth] = useState(() => localStorage.getItem("user"));
 
+    const [user, setUser] = useState({
+        isAuthenticated: true,   // change after login
+        role: "admin",           // "admin" | "user"
+    });
+
 
     const addReservation = (reservation) => {
         setReservations((prev) => [...prev, reservation]);
@@ -19,7 +24,12 @@ export default function AppProvider({ children }) {
     };
 
     return (
-        <AppContext.Provider value={{ menu, reservations, messages, addReservation, addMessage }}>
+        <AppContext.Provider value={
+            {
+                menu, reservations, messages, addReservation, addMessage,
+                user, setUser
+            }
+        }>
             {children}
         </AppContext.Provider>
     );
