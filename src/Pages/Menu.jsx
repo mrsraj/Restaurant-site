@@ -1,16 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect} from "react";
 import { AppContext } from "../context/AppContext";
 import DishCard from "../Common/DishCard";
 import CategoryFilter from "../components/CategoryFilter";
 import { FiFilter } from "react-icons/fi";
+import ApiFetching from "../API/api";
 
 export default function Menu() {
   const { menu } = useContext(AppContext);
-  const categories = ["All", ...new Set(menu.map((item) => item.category))];
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const finalData = await ApiFetching();
+      console.log("ApiFetching() =", finalData);
+      setData(finalData);
+    }
+
+    fetchData();
+  }, []);
+  
+
+  const categories = ["All", ...new Set(data.map((item) => item.category))];
   const [category, setCategory] = useState("All");
   const [showFilter, setShowFilter] = useState(false);
 
-  const filteredMenu = category === "All" ? menu : menu.filter((item) => item.category === category);
+  const filteredMenu = category === "All" ? data : data.filter((item) => item.category === category);
 
   return (
     <div className="max-w-7xl mx-auto p-4 md:flex gap-6">
