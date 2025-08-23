@@ -7,7 +7,6 @@ import Menu from "../Pages/Menu";
 import Booking from "../Pages/Booking";
 import Contact from "../Pages/Contact";
 import About from "../Pages/About";
-import Admin from "../AdminPages/Admin";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
 import ChatApp from "../Chating/chatApp";
@@ -20,8 +19,8 @@ function AppContent() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            {!isAdminRoute && <Navbar />}
-
+            
+            <Navbar />
             <div className="fix bl-0">
                 <ChatApp />
             </div>
@@ -33,7 +32,6 @@ function AppContent() {
                     <Route path="/menu" element={<Menu />} />
                     <Route path="/booking" element={<Booking />} />
                     <Route path="/contact" element={<Contact />} />
-                    <Route path="/admin" element={<Admin />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>
