@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { useMyContext } from "../../context/AppContext";
 
-export default function Admin() {
-    const { reservations, messages } = useContext(AppContext);
+function Reservations() {
+    const { reservations, messages } = useMyContext();
 
     return (
         <div className="max-w-6xl mx-auto p-6">
@@ -38,3 +37,5 @@ export default function Admin() {
         </div>
     );
 }
+
+export default Reservations;
