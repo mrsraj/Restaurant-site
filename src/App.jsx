@@ -1,13 +1,28 @@
-import AppProvider from "./context/AppContext";
+import AppProvider, { useMyContext } from "./context/AppContext";
+
 import { BrowserRouter } from "react-router-dom";
 import AppContent from "./Router/AppRouter";
+import AdminCollection from "./AdminPages/AdminCollection";
+
+
+function AppWrapper() {
+  const { user } = useMyContext();
+
+  return (
+    <BrowserRouter>
+      {user?.isAuthenticated && user.role === "admin" ? (
+        <AdminCollection />
+      ) : (
+        <AppContent />
+      )}
+    </BrowserRouter>
+  );
+}
 
 export default function App() {
   return (
     <AppProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <AppWrapper />
     </AppProvider>
   );
 }
