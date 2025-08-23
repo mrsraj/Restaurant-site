@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        name: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -16,22 +16,51 @@ export default function Register() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    async function handleApi() {
+        const { confirmPassword, ...dataToSend } = formData;
+        try {
+            const response = fetch('http://localhost:5000/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error( 'Registration failed');
+            }
+
+            const data = await response.json();
+            console.log('Success:', data);
+            return true;
+        } catch (error) {
+            console.error('Error:', error.message);
+            alert(error.message);
+            return false;
+        }
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-        console.log("Register data:", formData);
-        localStorage.setItem('user', JSON.stringify(formData));
-        setFormData({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-        })
-        navigate("/");
+
+        const success = await handleApi();
+        if (success) {
+            setFormData({
+                username: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+            });
+            navigate("/");
+        }
     };
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
@@ -44,8 +73,8 @@ export default function Register() {
                         <label className="block mb-1 font-medium">Full Name</label>
                         <input
                             type="text"
-                            name="name"
-                            value={formData.name}
+                            name="username"
+                            value={formData.username}
                             onChange={handleChange}
                             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-red-500"
                             required
