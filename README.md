@@ -48,3 +48,21 @@ This project is designed to help restaurant admins easily manage daily operation
 ---
 
 ## 📂 Folder Structure
+
+restaurant-admin-dashboard/
+│── src/
+│ ├── AdminPages/ # All admin pages (Dashboard, Menu, Orders, etc.)
+│ ├── components/ # Reusable UI components
+│ ├── context/ # Context API for global state
+│ ├── Router/ # App routing
+│ ├── App.jsx # Root component
+│ └── main.jsx # Entry point
+│
+│── public/ # Static assets
+│── package.json # Dependencies
+│── README.md # Documentation
+
+## Install Dependencies
+    npm install
+## Start Development Server
+    npm run dev
