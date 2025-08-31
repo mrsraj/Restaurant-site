@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Register() {
+function Register() {
     const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         username: "",
         email: "",
+        role: "user",
         password: "",
         confirmPassword: "",
     });
-
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,8 +18,9 @@ export default function Register() {
 
     async function handleApi() {
         const { confirmPassword, ...dataToSend } = formData;
+
         try {
-            const response = fetch('http://localhost:5000/user', {
+            const response = await fetch('http://localhost:3000/auth/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,12 +28,12 @@ export default function Register() {
                 body: JSON.stringify(dataToSend),
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error( 'Registration failed');
+                throw new Error(data.message || 'Registration failed');
             }
 
-            const data = await response.json();
             console.log('Success:', data);
             return true;
         } catch (error) {
@@ -44,12 +45,14 @@ export default function Register() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
         const success = await handleApi();
+
         if (success) {
             setFormData({
                 username: "",
@@ -60,7 +63,6 @@ export default function Register() {
             navigate("/");
         }
     };
-
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
@@ -130,3 +132,6 @@ export default function Register() {
         </div>
     );
 }
+
+
+export default Register;
