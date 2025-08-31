@@ -6,6 +6,7 @@ import Reservations from "./AdminPages/Reservations";
 import Menu from "./AdminPages/Menu";
 import Gallery from "./Gallery/Gallery";
 import Settings from "./Settings/Settings";
+// import Message from "./AdminPages/Message";
 
 function AdminCollection() {
     return (
@@ -19,6 +20,7 @@ function AdminCollection() {
                     <Route path="/menu" element={<Menu />} />
                     <Route path="/gallery" element={<Gallery />} />
                     <Route path="/settings" element={<Settings />} />
+                    {/* <Route path="/message" element={<Message />} /> */}
                 </Routes>
             </main>
         </div>
