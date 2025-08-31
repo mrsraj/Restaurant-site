@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, ShoppingCart, Calendar, MenuIcon, Image, Settings } from "lucide-react";
+import { Home, ShoppingCart, Calendar, MenuIcon, Image, Settings, MessageCircle } from "lucide-react";
 
 const Navbar = () => {
     const links = [
@@ -8,7 +8,9 @@ const Navbar = () => {
         { to: "/reservations", label: "Reservations", icon: <Calendar size={18} /> },
         { to: "/menu", label: "Menu", icon: <MenuIcon size={18} /> },
         { to: "/gallery", label: "Gallery", icon: <Image size={18} /> },
+        { to: "/message", label: "Message", icon: <MessageCircle size={18} /> },
         { to: "/settings", label: "Settings", icon: <Settings size={18} /> },
+        
     ];
 
     return (
