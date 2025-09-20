@@ -2,10 +2,8 @@ import { useState } from "react";
 
 export default function Carousel() {
     const images = [
-        "https://source.unsplash.com/800x500/?restaurant,food",
-        "https://source.unsplash.com/800x500/?pasta",
-        "https://source.unsplash.com/800x500/?dessert",
-        "https://source.unsplash.com/800x500/?salad",
+        "./images/restaurant.jpg",
+       
     ];
 
     const [current, setCurrent] = useState(0);

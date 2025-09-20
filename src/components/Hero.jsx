@@ -4,11 +4,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 
 const images = [
-    'https://source.unsplash.com/1600x900/?restaurant,interior',
-    'https://source.unsplash.com/1600x900/?restaurant,food',
-    'https://source.unsplash.com/1600x900/?restaurant,dining',
-    'https://source.unsplash.com/1600x900/?restaurant,cuisine',
-    'https://source.unsplash.com/1600x900/?restaurant,table'
+    './images/restaurant.jpg',
 ];
 
 export default function Hero() {

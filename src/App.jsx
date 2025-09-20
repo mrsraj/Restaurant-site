@@ -10,7 +10,7 @@ function AppWrapper() {
 
   return (
     <BrowserRouter>
-      {user?.isAuthenticated && user.role === "admin" ? (
+      {user?.isAuthenticated && user.role === "admin1y" ? (
         <AdminCollection />
       ) : (
         <AppContent />

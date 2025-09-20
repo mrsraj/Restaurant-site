@@ -9,21 +9,20 @@ import Contact from "../Pages/Contact";
 import About from "../Pages/About";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
-import ChatApp from "../Chating/chatApp";
+import NotFound from "../DefaultCode/DefaultComponent";
+// import ChatApp from "../Chating/chatApp";
 
 
 // Helper wrapper to use useLocation correctly
 function AppContent() {
-    const location = useLocation();
-    const isAdminRoute = location.pathname === '/admin';
 
     return (
         <div className="flex flex-col min-h-screen">
             
             <Navbar />
-            <div className="fix bl-0">
+            {/* <div className="fix bl-0">
                 <ChatApp />
-            </div>
+            </div> */}
 
             <main className="flex-grow">
                 <Routes>
@@ -34,6 +33,7 @@ function AppContent() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
 
