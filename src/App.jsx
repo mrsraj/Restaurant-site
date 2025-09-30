@@ -2,7 +2,7 @@ import AppProvider, { useMyContext } from "./context/AppContext";
 
 import { BrowserRouter } from "react-router-dom";
 import AppContent from "./Router/AppRouter";
-import AdminCollection from "./AdminPages/AdminCollection";
+import AdminCollection from "./AdminPages/AdminRouters";
 
 
 function AppWrapper() {
@@ -10,7 +10,7 @@ function AppWrapper() {
 
   return (
     <BrowserRouter>
-      {user?.isAuthenticated && user.role === "admin1y" ? (
+      {user?.isAuthenticated && user.role === "admin" ? (
         <AdminCollection />
       ) : (
         <AppContent />

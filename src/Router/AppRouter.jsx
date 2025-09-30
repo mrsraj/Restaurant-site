@@ -9,7 +9,7 @@ import Contact from "../Pages/Contact";
 import About from "../Pages/About";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
-import NotFound from "../DefaultCode/DefaultComponent";
+import NotFound from "../Common/DefaultComponent";
 // import ChatApp from "../Chating/chatApp";
 
 
