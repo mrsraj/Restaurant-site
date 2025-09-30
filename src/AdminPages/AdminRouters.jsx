@@ -6,6 +6,7 @@ import Reservations from "./AdminPages/Reservations";
 import Menu from "./AdminPages/Menu";
 import Gallery from "./Gallery/Gallery";
 import Settings from "./Settings/Settings";
+import NotFound from "../Common/DefaultComponent";
 // import Message from "./AdminPages/Message";
 
 function AdminCollection() {
@@ -14,13 +15,14 @@ function AdminCollection() {
             <Navbar />
             <main className="flex-1 p-6 bg-gray-50 min-h-screen">
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/orders" element={<Orders />} />
-                    <Route path="/reservations" element={<Reservations />} />
-                    <Route path="/menu" element={<Menu />} />
-                    <Route path="/gallery" element={<Gallery />} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/admin" element={<Dashboard />} />
+                    <Route path="/admin/orders" element={<Orders />} />
+                    <Route path="/admin/reservations" element={<Reservations />} />
+                    <Route path="/admin/menu" element={<Menu />} />
+                    <Route path="/admin/gallery" element={<Gallery />} />
+                    <Route path="/admin/settings" element={<Settings />} />
                     {/* <Route path="/message" element={<Message />} /> */}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
         </div>
