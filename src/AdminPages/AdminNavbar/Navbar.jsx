@@ -3,13 +3,13 @@ import { Home, ShoppingCart, Calendar, MenuIcon, Image, Settings, MessageCircle 
 
 const Navbar = () => {
     const links = [
-        { to: "/", label: "Dashboard", icon: <Home size={18} /> },
-        { to: "/orders", label: "Orders", icon: <ShoppingCart size={18} /> },
-        { to: "/reservations", label: "Reservations", icon: <Calendar size={18} /> },
-        { to: "/menu", label: "Menu", icon: <MenuIcon size={18} /> },
-        { to: "/gallery", label: "Gallery", icon: <Image size={18} /> },
-        { to: "/message", label: "Message", icon: <MessageCircle size={18} /> },
-        { to: "/settings", label: "Settings", icon: <Settings size={18} /> },
+        { to: "/admin", label: "Dashboard", icon: <Home size={18} /> },
+        { to: "/admin/orders", label: "Orders", icon: <ShoppingCart size={18} /> },
+        { to: "/admin/reservations", label: "Reservations", icon: <Calendar size={18} /> },
+        { to: "/admin/menu", label: "Menu", icon: <MenuIcon size={18} /> },
+        { to: "/admin/gallery", label: "Gallery", icon: <Image size={18} /> },
+        { to: "/admin/message", label: "Message", icon: <MessageCircle size={18} /> },
+        { to: "/admin/settings", label: "Settings", icon: <Settings size={18} /> },
         
     ];
 
