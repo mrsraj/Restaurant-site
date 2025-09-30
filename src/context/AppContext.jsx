@@ -11,7 +11,7 @@ export default function AppProvider({ children }) {
 
     const [user, setUser] = useState({
         isAuthenticated: true,   // change after login
-        role: "admin",           // "admin" | "user"
+        role: "admin1",           // "admin" | "user"
     });
 
 

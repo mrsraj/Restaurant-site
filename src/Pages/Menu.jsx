@@ -4,11 +4,12 @@ import DishCard from "../Common/DishCard";
 import CategoryFilter from "../components/CategoryFilter";
 import { FiFilter } from "react-icons/fi";
 import ApiFetching from "../API/api";
+import menuData from "../data/menuData";
 
 export default function Menu() {
   const { menu } = useContext(AppContext);
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(menuData);
 
   useEffect(() => {
     async function fetchData() {
