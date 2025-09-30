@@ -7,6 +7,7 @@ import Menu from "./AdminPages/Menu";
 import Gallery from "./Gallery/Gallery";
 import Settings from "./Settings/Settings";
 import NotFound from "../Common/DefaultComponent";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 // import Message from "./AdminPages/Message";
 
 function AdminCollection() {
@@ -15,12 +16,59 @@ function AdminCollection() {
             <Navbar />
             <main className="flex-1 p-6 bg-gray-50 min-h-screen">
                 <Routes>
-                    <Route path="/admin" element={<Dashboard />} />
-                    <Route path="/admin/orders" element={<Orders />} />
-                    <Route path="/admin/reservations" element={<Reservations />} />
-                    <Route path="/admin/menu" element={<Menu />} />
-                    <Route path="/admin/gallery" element={<Gallery />} />
-                    <Route path="/admin/settings" element={<Settings />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
+                    <Route
+                        path="/admin/orders"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin1"]}>
+                                <Orders />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
+                    <Route
+                        path="/admin/reservations"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Reservations />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
+                    <Route
+                        path="/admin/menu"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Menu />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
+                    <Route
+                        path="/admin/gallery"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
+                    <Route
+                        path="/admin/settings"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Settings />
+                            </ProtectedRoute>
+                        }
+                    />
                     {/* <Route path="/message" element={<Message />} /> */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
