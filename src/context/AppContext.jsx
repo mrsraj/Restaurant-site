@@ -7,12 +7,9 @@ export default function AppProvider({ children }) {
     const [menu, setMenu] = useState(menuData);
     const [reservations, setReservations] = useState([]);
     const [messages, setMessages] = useState([]);
-    const [Auth, setAuth] = useState(() => localStorage.getItem("user"));
+    // const [Auth, setAuth] = useState(() => localStorage.getItem("user"));
 
-    const [user, setUser] = useState({
-        isAuthenticated: true,   // change after login
-        role: "admin1",           // "admin" | "user"
-    });
+    const [user, setUser] = useState({});
 
 
     const addReservation = (reservation) => {
