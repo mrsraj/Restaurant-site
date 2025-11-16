@@ -1,4 +1,4 @@
-export default [
+const menuData = [
     {
         id: 1,
         name: "Bruschetta",
@@ -64,3 +64,5 @@ export default [
         image: "https://source.unsplash.com/400x300/?chocolate-cake",
     },
 ];
+
+export default menuData;
