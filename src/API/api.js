@@ -16,6 +16,7 @@ async function ApiFetching(credential) {
     }
 
     const data = await res.json();
+    localStorage.setItem("user", data.role);
     console.log("data =", data);
     return data;
   } catch (error) {
