@@ -35,14 +35,25 @@ export default function Navbar() {
                             {link.label}
                         </Link>
                     ))}
-                    {/* Login Button */}
-                    <Link
-                        to="/login"
-                        className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-                    >
-                        Login
-                    </Link>
+
+                    {/* Login / Logout Button */}
+                    {Auth ? (
+                        <button
+                            onClick={HandleLogOut}
+                            className="block bg-[#ea4d4d] text-white px-4 py-2 rounded hover:bg-red-700 transition text-center"
+                        >
+                            LogOut
+                        </button>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="bg-[#0c7204] text-white px-4 py-2 rounded hover:bg-[#095b01] transition"
+                        >
+                            Login
+                        </Link>
+                    )}
                 </div>
+
 
                 {/* Mobile Menu Button */}
                 <button
@@ -62,7 +73,7 @@ export default function Navbar() {
                                 <Link
                                     to={link.to}
                                     onClick={() => setMenuOpen(false)}
-                                    className="block py-2 hover:text-red-600 transition-colors"
+                                    className="block py-2 hover:text-[#181818] transition-colors"
                                 >
                                     {link.label}
                                 </Link>
@@ -71,13 +82,14 @@ export default function Navbar() {
 
                         {/* Mobile Login Button */}
                         {
-                            Auth ?
-                                <button onClick={HandleLogOut}
+                            Auth ? (
+                                <button
+                                    onClick={HandleLogOut}
                                     className="block bg-[#ea4d4d] text-white px-4 py-2 rounded hover:bg-red-700 transition text-center"
                                 >
                                     LogOut
                                 </button>
-                                :
+                            ) : (
                                 <li>
                                     <Link
                                         to="/login"
@@ -87,7 +99,9 @@ export default function Navbar() {
                                         LogIn
                                     </Link>
                                 </li>
+                            )
                         }
+
                     </ul>
                 </div>
             )}
