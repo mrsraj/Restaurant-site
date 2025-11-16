@@ -17,23 +17,23 @@ function AdminCollection() {
             <main className="flex-1 p-6 bg-gray-50 min-h-screen">
                 <Routes>
                     <Route
-                        path="/admin"
+                        path="/admin/dashboard"
                         element={
                             <ProtectedRoute allowedRoles={["admin"]}>
                                 <Dashboard />
                             </ProtectedRoute>
                         }
                     />
-                    
+
                     <Route
                         path="/admin/orders"
                         element={
-                            <ProtectedRoute allowedRoles={["admin1"]}>
+                            <ProtectedRoute allowedRoles={["admin"]}>
                                 <Orders />
                             </ProtectedRoute>
                         }
                     />
-                    
+
                     <Route
                         path="/admin/reservations"
                         element={
@@ -42,7 +42,7 @@ function AdminCollection() {
                             </ProtectedRoute>
                         }
                     />
-                    
+
                     <Route
                         path="/admin/menu"
                         element={
@@ -51,16 +51,16 @@ function AdminCollection() {
                             </ProtectedRoute>
                         }
                     />
-                    
+
                     <Route
                         path="/admin/gallery"
                         element={
                             <ProtectedRoute allowedRoles={["admin"]}>
-                                <Dashboard />
+                                <Gallery />
                             </ProtectedRoute>
                         }
                     />
-                    
+
                     <Route
                         path="/admin/settings"
                         element={
