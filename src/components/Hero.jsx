@@ -5,6 +5,8 @@ import 'swiper/css/effect-fade';
 
 const images = [
     './images/restaurant.jpg',
+    './images/restaurant.jpg',
+    './images/restaurant.jpg',
 ];
 
 export default function Hero() {
