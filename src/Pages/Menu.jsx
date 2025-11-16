@@ -11,15 +11,15 @@ export default function Menu() {
 
   const [data, setData] = useState(menuData);
 
-  useEffect(() => {
-    async function fetchData() {
-      const finalData = await ApiFetching();
-      console.log("ApiFetching() =", finalData);
-      setData(finalData);
-    }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const finalData = await ApiFetching();
+  //     console.log("ApiFetching() =", finalData);
+  //     setData(finalData);
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   
 
   const categories = ["All", ...new Set(data.map((item) => item.category))];
