@@ -1,3 +1,4 @@
+import React from "react";
 import AppProvider, { useMyContext } from "./context/AppContext";
 
 import { BrowserRouter } from "react-router-dom";
@@ -6,11 +7,14 @@ import AdminCollection from "./AdminPages/AdminRouters";
 
 
 function AppWrapper() {
-  const { user } = useMyContext();
 
-  return (
+  const { user } = useMyContext();
+  console.log("User = ", user);
+  
+
+  return ( 
     <BrowserRouter>
-      {user?.isAuthenticated && user.role === "admin" ? (
+      { user.role === "admin" ? (
         <AdminCollection />
       ) : (
         <AppContent />
