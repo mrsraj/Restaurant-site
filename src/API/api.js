@@ -1,15 +1,27 @@
 
+async function ApiFetching(credential) {
+  console.log("credential =", credential);
 
-async function ApiFetching() {
-    const res = await fetch('http://localhost:5000');
+  try {
+    const res = await fetch("http://localhost:3000/auth/user/login", {
+      method: "POST", // use POST for login
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credential), // send credentials as JSON
+    });
+
     if (!res.ok) {
-        return "Sonthing is wrong";
+      throw new Error(`Something went wrong: ${res.status}`);
     }
+
     const data = await res.json();
-    console.log('data =', data);
-
+    console.log("data =", data);
     return data;
-
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return { error: error.message };
+  }
 }
 
 export default ApiFetching;
