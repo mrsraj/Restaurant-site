@@ -3,7 +3,7 @@ import { Home, ShoppingCart, Calendar, MenuIcon, Image, Settings, MessageCircle 
 
 const Navbar = () => {
     const links = [
-        { to: "/admin", label: "Dashboard", icon: <Home size={18} /> },
+        { to: "/admin/dashboard", label: "Dashboard", icon: <Home size={18} /> },
         { to: "/admin/orders", label: "Orders", icon: <ShoppingCart size={18} /> },
         { to: "/admin/reservations", label: "Reservations", icon: <Calendar size={18} /> },
         { to: "/admin/menu", label: "Menu", icon: <MenuIcon size={18} /> },
