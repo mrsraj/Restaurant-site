@@ -26,6 +26,15 @@ function AdminCollection() {
                     />
 
                     <Route
+                        path="/"
+                        element={
+                            <ProtectedRoute allowedRoles={["admin"]}>
+                                <Dashboard />
+                            </ProtectedRoute>
+                        }
+                    />
+
+                    <Route
                         path="/admin/orders"
                         element={
                             <ProtectedRoute allowedRoles={["admin"]}>
