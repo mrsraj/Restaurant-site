@@ -9,7 +9,7 @@ export default function AppProvider({ children }) {
     const [messages, setMessages] = useState([]);
     // const [Auth, setAuth] = useState(() => localStorage.getItem("user"));
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(localStorage.getItem('user') || []);
 
 
     const addReservation = (reservation) => {
