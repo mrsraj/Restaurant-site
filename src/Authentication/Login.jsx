@@ -37,9 +37,9 @@ export default function Login() {
                 return setLoading(false);
             }
 
-            setUser({ role: response.role });
+            setUser(response.role);
 
-            localStorage.setItem("user", response.role);
+            //localStorage.setItem("user", response.role);
 
             // Redirect based on role
             if (response.role === "admin") {

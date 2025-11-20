@@ -1,35 +1,39 @@
-import { useContext, useState, useEffect} from "react";
-import { AppContext } from "../context/AppContext";
+import { useState, useEffect } from "react";
 import DishCard from "../Common/DishCard";
 import CategoryFilter from "../components/CategoryFilter";
 import { FiFilter } from "react-icons/fi";
-import ApiFetching from "../API/api";
-import menuData from "../data/menuData";
+import MenuFetching from "../API/menuapi";
 
 export default function Menu() {
-  const { menu } = useContext(AppContext);
 
-  const [data, setData] = useState(menuData);
+  const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const finalData = await ApiFetching();
-  //     console.log("ApiFetching() =", finalData);
-  //     setData(finalData);
-  //   }
+  useEffect(() => {
+    window.scrollTo(
+      {
+        top: 0,
+        behavior: 'smooth'
+      });
+  })
 
-  //   fetchData();
-  // }, []);
-  
+  useEffect(() => {
+    async function fetchData() {
+      const finalData = await MenuFetching();
+      console.log("finalData = ", finalData.data);
+      setData(finalData.data);
+    }
+    fetchData();
+  }, []);
 
-  const categories = ["All", ...new Set(data.map((item) => item.category))];
+
+  const categories = ["All", ...new Set(data.map((item) => item.c_name))];
   const [category, setCategory] = useState("All");
   const [showFilter, setShowFilter] = useState(false);
 
-  const filteredMenu = category === "All" ? data : data.filter((item) => item.category === category);
+  const filteredMenu = category === "All" ? data : data.filter((item) => item.c_name === category);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:flex gap-6">
+    <div className="max-w-7xl mx-auto p-4 md:flex gap-6 bg-[#d6d5d5]">
       {/* Mobile Filter Button */}
       <div className="md:hidden flex justify-end mb-4">
         <button
@@ -56,8 +60,8 @@ export default function Menu() {
 
       {/* Dishes Grid */}
       <div className="flex-1">
-        <h2 className="text-3xl font-bold mb-6 text-center">Our Menu</h2>
-        <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 overflow-auto max-h-screen">
+        {/* <h2 className="text-3xl font-bold mb-6 text-center">Our Menu</h2> */}
+        <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 overflow-auto max-h-screen ">
           {filteredMenu.map((dish) => (
             <DishCard key={dish.id} dish={dish} />
           ))}

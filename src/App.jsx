@@ -14,7 +14,7 @@ function AppWrapper() {
 
   return ( 
     <BrowserRouter>
-      { user.role === "admin" ? (
+      { user === "admin" ? (
         <AdminCollection />
       ) : (
         <AppContent />
