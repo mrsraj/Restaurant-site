@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import navLinks from "./Navbar-link";
 import { useMyContext } from "../context/AppContext";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const location = useLocation();
 
     const { Auth } = useMyContext();
     console.log("Auth = ", Auth);
@@ -30,11 +31,17 @@ export default function Navbar() {
                         <Link
                             key={link.to}
                             to={link.to}
-                            className="hover:text-red-600 transition-colors"
+                            className={
+                                location.pathname === link.to
+                                    ? "bg-[#0c7204] text-white p-1 rounded"
+                                    : "text-black p-1"
+                            }
                         >
                             {link.label}
                         </Link>
                     ))}
+
+
 
                     {/* Login / Logout Button */}
                     {Auth ? (
