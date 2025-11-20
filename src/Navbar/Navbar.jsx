@@ -80,7 +80,11 @@ export default function Navbar() {
                                 <Link
                                     to={link.to}
                                     onClick={() => setMenuOpen(false)}
-                                    className="block py-2 hover:text-[#181818] transition-colors"
+                                    className={
+                                        location.pathname === link.to
+                                            ? "bg-[#0c7204] text-white p-1 rounded"
+                                            : "text-black p-1"
+                                    }
                                 >
                                     {link.label}
                                 </Link>
