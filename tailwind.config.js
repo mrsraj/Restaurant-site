@@ -5,7 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        loader: {
+          "0%": { transform: "translateX(-100%)" },
+          "50%": { transform: "translateX(20%)" },
+          "100%": { transform: "translateX(120%)" },
+        },
+      },
+      animation: {
+        loader: "loader 1.4s ease-in-out infinite",
+      },
+    },
   },
   plugins: [],
 }
