@@ -3,10 +3,13 @@ import DishCard from "../Common/DishCard";
 import CategoryFilter from "../components/CategoryFilter";
 import { FiFilter } from "react-icons/fi";
 import MenuFetching from "../API/menuapi";
+import CartPage from "./CartPage";
+import ModernLoader from "../Common/ModernLoader";
 
 export default function Menu() {
 
   const [data, setData] = useState([]);
+  const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
     window.scrollTo(
@@ -61,11 +64,38 @@ export default function Menu() {
       {/* Dishes Grid */}
       <div className="flex-1">
         {/* <h2 className="text-3xl font-bold mb-6 text-center">Our Menu</h2> */}
-        <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 overflow-auto max-h-screen ">
-          {filteredMenu.map((dish) => (
-            <DishCard key={dish.id} dish={dish} />
-          ))}
+        <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 overflow-auto max-h-screen">
+          {!filteredMenu ? (
+            <ModernLoader /> 
+          ) : filteredMenu.length === 0 ? (
+            <p className="text-gray-500 text-center col-span-full">
+              No menu items found
+            </p> // 📭 Data loaded but empty
+          ) : (
+            filteredMenu.map((dish) => (
+              <DishCard key={dish.id} dish={dish} />
+            ))
+          )}
         </div>
+
+      </div>
+
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full"
+      >
+        ↑
+      </button>
+
+      <div>
+        <button
+          onClick={() => setOpenCart(true)}
+          className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full"
+        >
+          Open Cart
+        </button>
+
+        <CartPage isOpen={openCart} onClose={() => setOpenCart(false)} />
       </div>
     </div>
   );
