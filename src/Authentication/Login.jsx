@@ -1,10 +1,10 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiFetching from "../API/api";
 import { useMyContext } from "../context/AppContext";
 
 export default function Login() {
-    const { setUser } = useMyContext();
+    const { setUser ,setAuth} = useMyContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,6 +38,7 @@ export default function Login() {
             }
 
             setUser(response.role);
+            setAuth([]);
 
             //localStorage.setItem("user", response.role);
 
@@ -59,9 +60,11 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-center text-red-600 mb-6">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 bg-cover bg-center"
+            style={{ backgroundImage: "url('./images/bgimage.jpg')" }}
+        >
+            <div className="w-full max-w-md bg-white/20 rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
                     LogIn
                 </h2>
 
@@ -96,17 +99,17 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-2 rounded text-white transition ${loading ? "bg-gray-400" : "bg-red-600 hover:bg-red-700"
+                        className={`w-full py-2 rounded text-white transition ${loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
                             }`}
                     >
-                        {loading ? "Logging in..." : "Login"}
+                        {loading ? "Logging in..." : "LogIn"}
                     </button>
 
                 </form>
 
                 <p className="text-center text-sm text-gray-600 mt-4">
                     Don't have an account?{" "}
-                    <Link to="/register" className="text-red-600 hover:underline">
+                    <Link to="/register" className="text-green-600 hover:underline">
                         Register
                     </Link>
                 </p>

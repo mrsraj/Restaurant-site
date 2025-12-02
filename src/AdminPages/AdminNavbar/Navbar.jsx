@@ -4,7 +4,7 @@ import { useMyContext } from "../../context/AppContext";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { setUser } = useMyContext();
+    const { setUser,setAuth } = useMyContext();
 
     const links = [
         { to: "/admin/dashboard", label: "Dashboard", icon: <Home size={18} /> },
@@ -21,6 +21,7 @@ const Navbar = () => {
         //localStorage.removeItem("token");
         //if (typeof setUser === "function") 
         setUser({});
+        setAuth('');
         navigate("/");
     };
 

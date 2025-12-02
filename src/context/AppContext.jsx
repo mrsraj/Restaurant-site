@@ -7,7 +7,7 @@ export default function AppProvider({ children }) {
     const [menu, setMenu] = useState(menuData);
     const [reservations, setReservations] = useState([]);
     const [messages, setMessages] = useState([]);
-    // const [Auth, setAuth] = useState(() => localStorage.getItem("user"));
+    const [Auth, setAuth] = useState(localStorage.getItem("user"));
 
     const [user, setUser] = useState(localStorage.getItem('user') || []);
 
@@ -24,7 +24,8 @@ export default function AppProvider({ children }) {
         <AppContext.Provider value={
             {
                 menu, reservations, messages, addReservation, addMessage,
-                user, setUser
+                user, setUser,
+                Auth, setAuth
             }
         }>
             {children}

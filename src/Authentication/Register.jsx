@@ -65,9 +65,11 @@ function Register() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-center text-red-600 mb-6">
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 bg-cover bg-center"
+            style={{ backgroundImage: "url('./images/bgimage.jpg')" }}
+        >
+            <div className="w-full max-w-md bg-white/20 rounded-lg shadow-md p-6">
+                <h2 className="text-2xl font-bold text-center text-black mb-6">
                     Register
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -117,14 +119,14 @@ function Register() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
+                        className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
                     >
                         Register
                     </button>
                 </form>
                 <p className="text-center text-sm text-gray-600 mt-4">
                     Already have an account?{" "}
-                    <Link to="/login" className="text-red-600 hover:underline">
+                    <Link to="/login" className="text-green-600 hover:underline">
                         Login
                     </Link>
                 </p>

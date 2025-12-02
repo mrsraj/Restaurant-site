@@ -8,13 +8,15 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
 
-    const { Auth } = useMyContext();
+    const { Auth , setAuth} = useMyContext();
     console.log("Auth = ", Auth);
 
 
     function HandleLogOut() {
         console.log("LogOut SuccessFully");
-        localStorage.removeItem("user");
+        localStorage.clear();
+        setMenuOpen(!menuOpen);
+        setAuth('');
     }
 
     return (
