@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { replace, useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import toast from "react-hot-toast";
-
+import { useMyContext } from "../context/AppContext";
 export default function DishCard({ dish }) {
     const [cartQty, setCartQty] = useState(0);
+    const { Auth } = useMyContext();
+    const navigate = useNavigate();
 
     // On mount, read existing qty from localStorage
     useEffect(() => {
@@ -20,6 +23,11 @@ export default function DishCard({ dish }) {
         : dish.price;
 
     function handleAddToCart() {
+        if (!Auth) { 
+            navigate('/login', { replace: true }); 
+            return;
+        }
+
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existingItemIndex = cart.findIndex((item) => item.id === dish.id);
 
