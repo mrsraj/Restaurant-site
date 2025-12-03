@@ -3,21 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 import navLinks from "./Navbar-link";
 import { useMyContext } from "../context/AppContext";
+import { useLogout } from "../Authentication/LogOut";
 
 export default function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
     const location = useLocation();
 
     const { Auth , setAuth} = useMyContext();
     console.log("Auth = ", Auth);
+    const { logout, menuOpen,setMenuOpen } = useLogout();
 
-
-    function HandleLogOut() {
-        console.log("LogOut SuccessFully");
-        localStorage.clear();
-        setMenuOpen(!menuOpen);
-        setAuth('');
-    }
 
     return (
         <nav className="bg-[#07bbed] shadow-md sticky top-0 z-50">
@@ -48,7 +42,7 @@ export default function Navbar() {
                     {/* Login / Logout Button */}
                     {Auth ? (
                         <button
-                            onClick={HandleLogOut}
+                            onClick={logout}
                             className="block bg-[#ea4d4d] text-white px-4 py-2 rounded hover:bg-red-700 transition text-center"
                         >
                             LogOut
@@ -97,7 +91,7 @@ export default function Navbar() {
                         {
                             Auth ? (
                                 <button
-                                    onClick={HandleLogOut}
+                                    onClick={logout}
                                     className="block bg-[#ea4d4d] text-white px-4 py-2 rounded hover:bg-red-700 transition text-center"
                                 >
                                     LogOut
