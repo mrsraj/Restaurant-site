@@ -9,6 +9,7 @@ import ModernLoader from "../Common/ModernLoader";
 export default function Menu() {
 
   const [data, setData] = useState([]);
+  const [error, setError] = useState(false)
   const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
@@ -22,9 +23,14 @@ export default function Menu() {
   useEffect(() => {
     async function fetchData() {
       const finalData = await MenuFetching();
-      console.log("finalData = ", finalData.data);
+
+      if (finalData.error) {
+        setError(finalData.error);
+        return;
+      }
       setData(finalData.data);
     }
+
     fetchData();
   }, []);
 
@@ -65,12 +71,16 @@ export default function Menu() {
       <div className="flex-1">
         {/* <h2 className="text-3xl font-bold mb-6 text-center">Our Menu</h2> */}
         <div className="grid gap-6 md:grid-cols-3 sm:grid-cols-2 overflow-auto max-h-screen">
-          {!filteredMenu ? (
-            <ModernLoader /> 
+          {error ? (
+            <p className="text-red-500 text-center col-span-full">
+              Failed to load menu. Please try again.
+            </p>
+          ) : !filteredMenu ? (
+            <ModernLoader />
           ) : filteredMenu.length === 0 ? (
             <p className="text-gray-500 text-center col-span-full">
               No menu items found
-            </p> // 📭 Data loaded but empty
+            </p>
           ) : (
             filteredMenu.map((dish) => (
               <DishCard key={dish.id} dish={dish} />
