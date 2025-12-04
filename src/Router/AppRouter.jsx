@@ -18,7 +18,7 @@ function AppContent() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            
+
             <Navbar />
             {/* <div className="fix bl-0">
                 <ChatApp />
@@ -26,16 +26,19 @@ function AppContent() {
 
             <main className="flex-grow">
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/menu" element={<Menu />} />
                     <Route path="/booking" element={<Booking />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="*" element={<NotFound />} />
+
+                    {/* Catch-all route */}
+                    <Route path="*" element={<Home />} />
                 </Routes>
             </main>
+
 
             <Footer />
         </div>
