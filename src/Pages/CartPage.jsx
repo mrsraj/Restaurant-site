@@ -6,7 +6,7 @@ import { payWithRazorpay } from "../payment/razorpayPayment";
 function CartPage({ isOpen, onClose }) {
     const [cart, setCart] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [paymentMethod, setPaymentMethod] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("cash");
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
     const paymentMethods = ["Cash", "Card", "UPI", "Net Banking"];
@@ -48,14 +48,17 @@ function CartPage({ isOpen, onClose }) {
             user_id: userInfo.user_id,
             cart: cart,
             total: grandTotal,
-            payment_method: paymentMethod, // "cash" | "card" | "upi" | "net banking"
+            method: paymentMethod, // "cash" | "card" | "upi" | "net banking"
         };
 
         try {
             setIsPlacingOrder(true);
+            console.log("orderData = ",orderData);
 
             // 1) Hit backend to create order (and Razorpay order if needed)
             const orderResponse = await createOrder(orderData);
+            
+            
 
             // 2) If Cash → no payment gateway
             if (paymentMethod === "cash") {
