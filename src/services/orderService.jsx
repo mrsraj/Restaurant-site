@@ -1,9 +1,9 @@
 // src/services/orderService.js
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://YOUR_BACKEND_URL_HERE";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
 export async function createOrder(orderData) {
-    const res = await fetch(`${API_BASE_URL}/api/orders`, {
+    const res = await fetch(`${API_BASE_URL}/order/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -14,7 +14,8 @@ export async function createOrder(orderData) {
     });
 
     const data = await res.json();
-
+    localStorage.setItem("invoice_id", data.invoice_id);
+    
     if (!res.ok) {
         throw new Error(data.message || "Failed to create order");
     }
