@@ -8,6 +8,7 @@ export default function AppProvider({ children }) {
     const [reservations, setReservations] = useState([]);
     const [messages, setMessages] = useState([]);
     const [Auth, setAuth] = useState(localStorage.getItem("user"));
+    const [invoiceId, setInvoiceId] = useState(null);
 
     const [user, setUser] = useState(localStorage.getItem('user') || []);
 
@@ -25,7 +26,8 @@ export default function AppProvider({ children }) {
             {
                 menu, reservations, messages, addReservation, addMessage,
                 user, setUser,
-                Auth, setAuth
+                Auth, setAuth,
+                invoiceId, setInvoiceId
             }
         }>
             {children}
