@@ -14,7 +14,7 @@ function AdminCollection() {
     return (
         <div className="flex">
             <Navbar />
-            <main className="flex-1 p-6 bg-gray-50 min-h-screen">
+            <main className="flex-1 p-1 bg-[#dedcdc] min-h-screen">
                 <Routes>
                     <Route
                         path="/admin/dashboard"

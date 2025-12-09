@@ -21,7 +21,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
             setFormData({
                 ...EMPTY_ITEM,
                 ...initialData,
-                // ensure is_active is 0/1
                 is_active: initialData.is_active ? 1 : 0,
             });
         } else {
@@ -33,7 +32,7 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
     if (!isOpen) return null;
 
     const handleChange = (e) => {
-        const { name, value, checked, type } = e.target;
+        const { name, value, checked } = e.target;
 
         if (name === "is_active") {
             setFormData((prev) => ({
@@ -67,13 +66,32 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
             discount: formData.discount === "" ? 0 : Number(formData.discount),
         };
 
-        onSubmit(payload); // parent ko final data mil jayega (numbers ke sath)
+        // Parent ko final data
+        if (typeof onSubmit === "function") {
+            onSubmit(payload);
+        }
+
         onClose();
+        console.log("payload = ", payload);
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFormData((prev) => ({
+                ...prev,
+                image_urls: reader.result, // base64 string
+            }));
+        };
+        reader.readAsDataURL(file);
     };
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div className="bg-white rounded-xl shadow-lg w-full max-w-lg p-6">
+            <div className="bg-white rounded-xl shadow-lg w-full max-w-lg max-h-[90vh] overflow-auto p-6">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-semibold">
@@ -97,7 +115,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name */}
                     <div>
                         <label className="block text-sm font-medium mb-1">
                             Name
@@ -112,7 +129,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                         />
                     </div>
 
-                    {/* Description */}
                     <div>
                         <label className="block text-sm font-medium mb-1">
                             Description
@@ -126,21 +142,28 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                         />
                     </div>
 
-                    {/* Image URL */}
                     <div>
                         <label className="block text-sm font-medium mb-1">
-                            Image URL
+                            Image
                         </label>
+
                         <input
-                            type="text"
-                            name="image_urls"
-                            value={formData.image_urls}
-                            onChange={handleChange}
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
                             className="w-full border rounded-md px-3 py-2 text-sm outline-none focus:ring focus:ring-blue-200"
                         />
+
+                        {/* Image Preview (URL or Base64 both chalega) */}
+                        {formData.image_urls && (
+                            <img
+                                src={formData.image_urls}
+                                alt="Preview"
+                                className="w-28 h-28 object-cover rounded mt-2 border"
+                            />
+                        )}
                     </div>
 
-                    {/* Price & Discount */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium mb-1">
@@ -156,6 +179,7 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                                 required
                             />
                         </div>
+
                         <div>
                             <label className="block text-sm font-medium mb-1">
                                 Discount (₹)
@@ -171,7 +195,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                         </div>
                     </div>
 
-                    {/* Category */}
                     <div>
                         <label className="block text-sm font-medium mb-1">
                             Category
@@ -189,7 +212,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                         </select>
                     </div>
 
-                    {/* Active */}
                     <div className="flex items-center gap-2">
                         <input
                             type="checkbox"
@@ -204,7 +226,6 @@ const MenuFormModal = ({ isOpen, onClose, initialData, onSubmit }) => {
                         </label>
                     </div>
 
-                    {/* Footer buttons */}
                     <div className="flex justify-end gap-3 pt-2">
                         <button
                             type="button"

@@ -18,15 +18,13 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("user");
-        //localStorage.removeItem("token");
-        //if (typeof setUser === "function") 
         setUser({});
         setAuth('');
         navigate("/");
     };
 
     return (
-        <aside className="w-60 bg-white shadow-lg min-h-screen p-4 flex flex-col">
+        <aside className="w-60 bg-white shadow-lg min-h-screen p-4 flex flex-col border-r-2 border-gray-500">
             <h1 className="text-2xl font-bold mb-8 text-green-700">🍽 Admin Panel</h1>
 
             <nav className="flex-1 flex flex-col gap-3">
