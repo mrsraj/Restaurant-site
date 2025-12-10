@@ -6,3 +6,9 @@
 *{
     scrollbar-width:none;
 }
+
+@layer components {
+  .header_color {
+    @apply bg-[#1cd8cb];
+  }
+}
