@@ -41,12 +41,12 @@ const Dashboard = () => {
 
     return (
         <div className="overflow-auto max-h-full">
-            <h2 className="text-2xl font-bold mb-3 text-center">📊 Admin Dashboard</h2>
+            <h2 className="text-2xl font-bold mb-1 text-center header_color p-2">📊 Admin Dashboard</h2>
 
             {/* Today & Yesterday Overview */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-2 mb-2">
                 {/* Today */}
-                <div className="bg-white p-6 rounded-xl shadow">
+                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
                     <h3 className="text-lg font-semibold mb-3">Today’s Overview</h3>
                     <div className="grid grid-cols-3 text-center">
                         <div>
@@ -68,7 +68,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Yesterday */}
-                <div className="bg-white p-6 rounded-xl shadow">
+                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
                     <h3 className="text-lg font-semibold mb-3">Yesterday’s Overview</h3>
                     <div className="grid grid-cols-3 text-center">
                         <div>
@@ -91,9 +91,9 @@ const Dashboard = () => {
             </div>
 
             {/* Revenue Chart & Top Items */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-2 mb-2">
                 {/* Revenue Trend */}
-                <div className="bg-white p-6 rounded-xl shadow">
+                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
                     <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                         <TrendingUp className="text-green-600" /> Weekly Revenue
                     </h3>
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Top Items */}
-                <div className="bg-white p-6 rounded-xl shadow">
+                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
                     <h3 className="text-lg font-semibold mb-3">🔥 Top Selling Items</h3>
                     <ul>
                         {topItems.map((item) => (
@@ -125,7 +125,7 @@ const Dashboard = () => {
             </div>
 
             {/* Reservations */}
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-gradient-to-r from-[#69c2ef] to-[#9eeee9] p-6 rounded-xl shadow">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                     <Calendar className="text-purple-600" /> Upcoming Reservations
                 </h3>

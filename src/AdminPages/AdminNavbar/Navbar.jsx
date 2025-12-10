@@ -24,8 +24,8 @@ const Navbar = () => {
     };
 
     return (
-        <aside className="w-60 bg-white shadow-lg min-h-screen p-4 flex flex-col border-r-2 border-gray-500">
-            <h1 className="text-2xl font-bold mb-8 text-green-700">🍽 Admin Panel</h1>
+        <aside className="w-60 bg-gradient-to-r from-white to-[#43b3eb] shadow-lg min-h-screen p-4 flex flex-col border-r-2 border-gray-500">
+            <h1 className="text-2xl font-bold mb-8 text-green-700 ">🍽 Admin Panel</h1>
 
             <nav className="flex-1 flex flex-col gap-3">
                 {links.map(({ to, label, icon }) => (
