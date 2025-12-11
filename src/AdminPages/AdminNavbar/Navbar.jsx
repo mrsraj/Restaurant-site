@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { startTransition } from "react";
 import { Home, ShoppingCart, Calendar, MenuIcon, Image, Settings, MessageCircle, LogOut } from "lucide-react";
 import { useMyContext } from "../../context/AppContext";
 
@@ -20,7 +21,9 @@ const Navbar = () => {
         localStorage.removeItem("user");
         setUser({});
         setAuth('');
-        navigate("/");
+        startTransition(() => {
+          navigate("/");
+        });
     };
 
     return (
