@@ -4,27 +4,38 @@ import { useState } from "react";
 const useAddMenuItem = (setMenuItems, setError, setOpenModal) => {
     const [adding, setAdding] = useState(false);
 
-    const addMenuItem = async (payload) => {
+    const addMenuItem = async (formData) => {
         try {
             setAdding(true);
             setError(null);
 
-            const res = await fetch("http://localhost:3000/api/menu", {
-                method: "POST"
-            });
+            const userInfo = JSON.parse(localStorage.getItem("user_info"));
+            const token = userInfo?.token;
 
+            const response = await fetch("http://localhost:3000/api/menu/additem",{
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: formData, 
+                }
+            );
 
-            const newItem = response.data.data || response.data;
+            if (!response.ok) {
+                const errText = await response.text();
+                throw new Error(errText || "Failed to add menu item");
+            }
+
+            const newItem = await response.json(); // ✅ fetch way
 
             setMenuItems((prev) => [...prev, newItem]);
 
             if (setOpenModal) setOpenModal(false);
         } catch (err) {
             console.error(err);
-            const msg =
-                err.response?.data?.message ||
-                "Failed to add menu item. Please try again.";
-            setError(msg);
+            setError(
+                err.message || "Failed to add menu item. Please try again."
+            );
         } finally {
             setAdding(false);
         }
