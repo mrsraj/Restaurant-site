@@ -5,7 +5,7 @@ import { useMyContext } from "../../context/AppContext";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { setUser,setAuth } = useMyContext();
+    const { setUser, setAuth } = useMyContext();
 
     const links = [
         { to: "/admin/dashboard", label: "Dashboard", icon: <Home size={18} /> },
@@ -19,10 +19,10 @@ const Navbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("user");
-        setUser({});
-        setAuth('');
         startTransition(() => {
-          navigate("/");
+            setUser({});
+            setAuth('');
+            navigate("/");
         });
     };
 
