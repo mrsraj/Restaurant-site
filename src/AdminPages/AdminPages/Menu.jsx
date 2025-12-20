@@ -115,14 +115,14 @@ const Menu = () => {
                     </p>
                 )}
 
-                {menuItems.map((item) => (
+                {menuItems.map((item, indx) => (
                     <div
-                        key={item.id}
+                        key={indx}
                         className="p-4 bg-white shadow rounded-lg relative flex flex-col"
                     >
                         {/* Item Image */}
                         <img
-                            src={item.image || item.image_urls}
+                            src={`http://localhost:3000/uploads/${item.image_urls}`}
                             alt={item.name}
                             className="w-full h-40 object-cover rounded-md mb-3"
                         />
