@@ -1,77 +1,192 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import OrderDetailsModal from "./OrderDetails";
 
-const Orders = () => {
-    // Dummy orders data
-    const [orders, setOrders] = useState([
-        { id: 1, customer: "Rahul Kumar", item: "Paneer Butter Masala", price: 250, status: "Pending" },
-        { id: 2, customer: "Sneha Singh", item: "Chicken Biryani", price: 320, status: "Pending" },
-        { id: 3, customer: "Amit Patel", item: "Veg Burger", price: 150, status: "Pending" },
-        { id: 4, customer: "Priya Sharma", item: "Cold Coffee", price: 120, status: "Pending" },
-    ]);
+export default function Orders() {
+    const [orders, setOrders] = useState([]);
 
-    // Handle status change
-    const handleAction = (id, action) => {
-        setOrders((prev) =>
-            prev.map((order) =>
-                order.id === id ? { ...order, status: action } : order
-            )
-        );
+    const [modelorders, setModelOrders] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+
+
+    useEffect(() => {
+        fetch("http://localhost:3000/api/adminmenu")
+            .then(res => res.json())
+            .then(data => setOrders(data))
+            .catch(err => console.error(err));
+    }, []);
+
+    const statusStyles = {
+        pending: "bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200",
+        accepted: "bg-green-50 text-green-700 ring-1 ring-green-200",
+        cancelled: "bg-red-50 text-red-700 ring-1 ring-red-200",
     };
 
-    return (
-        <div className="p-6">
-            <h2 className="text-2xl font-bold mb-6">🛒 Orders</h2>
+    function handleDetailsModel(id) {
+        const orderData = orders.find(
+            order => order.invoice_id === id
+        );
+        setSelectedOrder(orderData); // ✅ OPEN MODAL
+    }
 
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white rounded-xl shadow-md">
-                    <thead>
-                        <tr className="bg-gray-100 text-left">
-                            <th className="py-3 px-4">Order ID</th>
-                            <th className="py-3 px-4">Customer</th>
-                            <th className="py-3 px-4">Item</th>
-                            <th className="py-3 px-4">Price</th>
-                            <th className="py-3 px-4">Status</th>
-                            <th className="py-3 px-4 text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orders.map((order) => (
-                            <tr key={order.id} className="border-b hover:bg-gray-50">
-                                <td className="py-3 px-4">{order.id}</td>
-                                <td className="py-3 px-4">{order.customer}</td>
-                                <td className="py-3 px-4">{order.item}</td>
-                                <td className="py-3 px-4">₹ {order.price}</td>
-                                <td
-                                    className={`py-3 px-4 font-semibold ${order.status === "Accepted"
-                                            ? "text-green-600"
-                                            : order.status === "Declined"
-                                                ? "text-red-600"
-                                                : "text-yellow-600"
-                                        }`}
-                                >
-                                    {order.status}
-                                </td>
-                                <td className="py-3 px-4 text-center space-x-2">
-                                    <button
-                                        onClick={() => handleAction(order.id, "Accepted")}
-                                        className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600"
-                                    >
-                                        Accept
-                                    </button>
-                                    <button
-                                        onClick={() => handleAction(order.id, "Declined")}
-                                        className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
-                                    >
-                                        Decline
-                                    </button>
-                                </td>
+
+
+    return (
+        <div className="min-h-screen bg-gray-100 ">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+                <h1 className="text-3xl font-bold text-gray-800 px-2">
+                    Orders Management
+                </h1>
+                <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl shadow-sm border">
+                    <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-100 text-blue-600 font-bold">
+                        #
+                    </div>
+                    <div className="leading-tight">
+                        <p className="text-xs text-gray-500">Total Orders</p>
+                        <p className="text-lg font-bold text-gray-800">
+                            {orders.length}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Table Card */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+                {/* Scroll Container */}
+                <div className="max-h-[87vh] overflow-y-auto">
+                    <table className="min-w-full text-sm">
+                        {/* Sticky Header */}
+                        <thead className="bg-gray-50 sticky top-0 z-10">
+                            <tr className="text-gray-600 uppercase text-xs tracking-wider">
+                                <th className="p-4 text-left">Invoice</th>
+                                <th className="p-4 text-left">Customer</th>
+                                <th className="p-4 text-center">No Items</th>
+                                <th className="p-4 text-left">Status</th>
+                                <th className="p-4 text-left">Payment</th>
+                                <th className="p-4 text-center">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody className="divide-y">
+                            {orders.map(order => (
+                                <tr
+                                    key={order.invoice_id}
+                                    className="hover:bg-gray-50 transition"
+                                >
+                                    {/* Invoice */}
+                                    <td className="p-4 font-medium text-gray-800">
+                                        #{order.invoice_id}
+                                    </td>
+
+                                    {/* Customer */}
+                                    <td className="p-4 text-gray-700">
+                                        {order.username}
+                                    </td>
+
+                                    {/* Items */}
+                                    <td className="p-4 text-center font-semibold">
+                                        {order.products.length}
+                                    </td>
+
+                                    {/* Status */}
+                                    <td className="p-4">
+                                        <span
+                                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
+                                            ${statusStyles[order.order_status] || statusStyles.pending}`}
+                                        >
+                                            {order.order_status || "pending"}
+                                        </span>
+                                    </td>
+
+                                    {/* Payment */}
+                                    <td className="p-4">
+                                        {order.payment_status === "paid" ? (
+                                            <span className="text-green-600 font-semibold">
+                                                ● Paid
+                                            </span>
+                                        ) : (
+                                            <span className="text-red-600 font-semibold">
+                                                ● Pending
+                                            </span>
+                                        )}
+                                    </td>
+
+                                    {/* Actions */}
+                                    <td className="p-4">
+                                        <div className="flex justify-end gap-2 min-w-[320px]">
+                                            {/* View – Always visible */}
+                                            <button
+                                                onClick={() => handleDetailsModel(order.invoice_id)}
+                                                className="px-3 py-1.5 w-20 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition"
+                                            >
+                                                View
+                                            </button>
+
+                                            {/* Accept – Slot always present */}
+                                            <button
+                                                disabled={order.order_status === "accepted"}
+                                                className={`px-3 py-1.5 w-20 rounded-lg text-xs font-semibold transition
+                                                        ${order.order_status === "accepted"
+                                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                                        : "bg-green-600 text-white hover:bg-green-700"
+                                                    }
+                                                `}
+                                            >
+                                                Accept
+                                            </button>
+
+                                            {/* Reject Button */}
+                                            <button
+                                                disabled={order.order_status === "cancelled"}
+                                                className={`px-3 py-1.5 w-20 rounded-lg text-xs font-semibold transition
+                                                        ${ order.order_status === "cancelled"
+                                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                                        : "bg-red-600 text-white hover:bg-red-700"
+                                                    }
+                                                `}
+                                            >
+                                                Reject
+                                            </button>
+
+
+                                            {/* Mark Paid – Slot always present */}
+                                            <button
+                                                disabled={order.payment_status === "paid"}
+                                                className={`px-3 py-1.5 w-24 rounded-lg text-xs font-semibold transition
+                                                        ${order.payment_status === "paid"
+                                                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                                        : "bg-purple-600 text-white hover:bg-purple-700"
+                                                    }
+                                                `}
+                                            >
+                                                Mark Paid
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                {/* ✅ MODAL */}
+                {selectedOrder && (
+                    <OrderDetailsModal
+                        order={selectedOrder}
+                        onClose={() => setSelectedOrder(null)}
+                    />
+                )}
+
+                {/* Empty State */}
+                {orders.length === 0 && (
+                    <div className="p-10 text-center text-gray-500">
+                        No orders found.
+                    </div>
+                )}
             </div>
         </div>
     );
-};
-
-export default Orders;
+}
