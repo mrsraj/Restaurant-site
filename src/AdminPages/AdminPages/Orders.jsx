@@ -1,35 +1,51 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OrderDetailsModal from "./OrderDetails";
+import updateMenuStatus from "../../API/statusUpdate";
 
 export default function Orders() {
     const [orders, setOrders] = useState([]);
 
-    const [modelorders, setModelOrders] = useState([]);
     const [selectedOrder, setSelectedOrder] = useState(null);
-
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         fetch("http://localhost:3000/api/adminmenu")
             .then(res => res.json())
             .then(data => setOrders(data))
             .catch(err => console.error(err));
-    }, []);
+    }, [refresh]);
+
+
+    async function updatePaymentStatus(id, status) {
+        await updateMenuStatus({
+            id,
+            payment_status: status
+        });
+        setRefresh(prev => !prev); // trigger refetch
+    }
+
+    async function updateOrderStatus(id, status) {
+        await updateMenuStatus({
+            id,
+            order_status: status
+        });
+        setRefresh(prev => !prev);
+    }
 
     const statusStyles = {
         pending: "bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200",
         accepted: "bg-green-50 text-green-700 ring-1 ring-green-200",
         cancelled: "bg-red-50 text-red-700 ring-1 ring-red-200",
     };
-
+    
+    // ✅ OPEN MODAL
     function handleDetailsModel(id) {
         const orderData = orders.find(
             order => order.invoice_id === id
         );
-        setSelectedOrder(orderData); // ✅ OPEN MODAL
+        setSelectedOrder(orderData);
     }
-
-
 
     return (
         <div className="min-h-screen bg-gray-100 ">
@@ -104,11 +120,11 @@ export default function Orders() {
                                     <td className="p-4">
                                         {order.payment_status === "paid" ? (
                                             <span className="text-green-600 font-semibold">
-                                                ● Paid
+                                                ● {order.payment_status}
                                             </span>
                                         ) : (
                                             <span className="text-red-600 font-semibold">
-                                                ● Pending
+                                                ● {order.payment_status}
                                             </span>
                                         )}
                                     </td>
@@ -126,26 +142,32 @@ export default function Orders() {
 
                                             {/* Accept – Slot always present */}
                                             <button
-                                                disabled={order.order_status === "accepted"}
+                                                disabled={order.order_status === "accepted" ||
+                                                    order.order_status === "cancelled"
+                                                }
                                                 className={`px-3 py-1.5 w-20 rounded-lg text-xs font-semibold transition
-                                                        ${order.order_status === "accepted"
+                                                    ${order.order_status === "accepted" ||
+                                                        order.order_status === "cancelled"
                                                         ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                                                         : "bg-green-600 text-white hover:bg-green-700"
                                                     }
                                                 `}
+                                                onClick={() => updateOrderStatus(order.invoice_id, "accepted")}
                                             >
                                                 Accept
                                             </button>
+
 
                                             {/* Reject Button */}
                                             <button
                                                 disabled={order.order_status === "cancelled"}
                                                 className={`px-3 py-1.5 w-20 rounded-lg text-xs font-semibold transition
-                                                        ${ order.order_status === "cancelled"
+                                                        ${order.order_status === "cancelled"
                                                         ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                                                         : "bg-red-600 text-white hover:bg-red-700"
                                                     }
                                                 `}
+                                                onClick={() => updateOrderStatus(order.invoice_id, "cancelled")}
                                             >
                                                 Reject
                                             </button>
@@ -153,16 +175,21 @@ export default function Orders() {
 
                                             {/* Mark Paid – Slot always present */}
                                             <button
-                                                disabled={order.payment_status === "paid"}
+                                                disabled={
+                                                    order.payment_status === "paid" ||
+                                                    order.order_status !== "accepted"
+                                                }
                                                 className={`px-3 py-1.5 w-24 rounded-lg text-xs font-semibold transition
-                                                        ${order.payment_status === "paid"
+                                                        ${order.payment_status === "paid" || order.order_status !== "accepted"
                                                         ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                                                         : "bg-purple-600 text-white hover:bg-purple-700"
                                                     }
                                                 `}
+                                                onClick={() => updatePaymentStatus(order.invoice_id, "paid")}
                                             >
                                                 Mark Paid
                                             </button>
+
                                         </div>
                                     </td>
 
