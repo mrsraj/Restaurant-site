@@ -24,7 +24,7 @@ function AppContent() {
                 <ChatApp />
             </div> */}
 
-            <main className="flex-grow">
+            <main className="flex-grow bg-slate-300">
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />
