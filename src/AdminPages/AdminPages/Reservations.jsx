@@ -1,33 +1,72 @@
-
 import { useEffect, useState } from "react";
 import updateReserveStatus from "../../API/updatereserveStatus";
+import ModernLoader from "../../Common/ModernLoader";
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../Authentication/LogOut";
 
 export default function Reservations() {
     const [reservations, setReservations] = useState([]);
     const [refresh, setRefresh] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const { logout } = useLogout();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
 
+    // Fetch reservations
     useEffect(() => {
-        fetch("http://localhost:3000/api/table/getreserv")
-            .then((res) => res.json())
-            .then((data) => setReservations(data));
+        const fetchReservations = async () => {
+            try {
+                setLoading(true);
+                setError(null);
+                const userInfo = JSON.parse(localStorage.getItem("user_info"));
+                const token = userInfo?.token;
+
+                const res = await fetch("http://localhost:3000/api/table/getreserv", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                });
+
+                if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.message || "Failed to fetch reservations");
+                }
+
+                const data = await res.json();
+                setReservations(data);
+            } catch (err) {
+                console.error("Fetch reservations error:", err);
+                setError(err.message || "Something went wrong");
+                if (err.message === "Invalid or expired token") {
+                    logout();
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchReservations();
     }, [refresh]);
 
+    // Update status
     const updateStatus = async (id, status) => {
         try {
-            const res = await updateReserveStatus(id, status);
-
-            // toggle refresh to re-fetch data
-            setRefresh(prev => !prev);
-
-            console.log("Reservation updated:", res);
-        } catch (error) {
-            console.error("Failed to update status:", error.message);
+            setError(null);
+            await updateReserveStatus(id, status);
+            setRefresh((prev) => !prev);
+        } catch (err) {
+            console.error("Update status error:", err);
+            setError(err.message || "Failed to update reservation");
         }
     };
+
+
 
 
     return (
@@ -35,6 +74,18 @@ export default function Reservations() {
             <h2 className="text-xl font-semibold mb-4">
                 Table Reservations
             </h2>
+
+            {/* Error message */}
+            {error && (
+                <div className="mb-4 rounded-lg bg-red-100 px-4 py-2 text-sm text-red-700">
+                    {error}
+                </div>
+            )}
+
+            {/* Loading */}
+            {loading && (
+                <ModernLoader />
+            )}
 
             <div className="overflow-x-auto">
                 <table className="min-w-full text-sm">
@@ -52,9 +103,9 @@ export default function Reservations() {
                     </thead>
 
                     <tbody>
-                        {reservations.length === 0 ? (
+                        {!loading && reservations.length === 0 ? (
                             <tr>
-                                <td colSpan="7" className="p-6 text-center text-gray-500">
+                                <td colSpan="8" className="p-6 text-center text-gray-500">
                                     No reservations found
                                 </td>
                             </tr>
@@ -71,12 +122,12 @@ export default function Reservations() {
                                     <td className="p-3">{r.number_of_persons}</td>
                                     <td className="p-3">{r.reservation_date}</td>
                                     <td className="p-3">{r.reservation_time}</td>
-                                    <td className="p-3">{r.table_no}</td>
+                                    <td className="p-3">{r.table_no || "—"}</td>
 
                                     <td className="p-3">
                                         <span
                                             className={`px-3 py-1 rounded-full text-xs font-semibold
-                                                    ${r.status === "pending"
+                        ${r.status === "pending"
                                                     ? "bg-yellow-100 text-yellow-700"
                                                     : r.status === "confirmed"
                                                         ? "bg-green-100 text-green-700"
@@ -90,7 +141,7 @@ export default function Reservations() {
                                     </td>
 
                                     <td className="p-3 text-center space-x-2">
-                                        {r.status === "pending" && (
+                                        {r.status === "pending" ? (
                                             <>
                                                 <button
                                                     onClick={() =>
@@ -110,12 +161,8 @@ export default function Reservations() {
                                                     Cancel
                                                 </button>
                                             </>
-                                        )}
-
-                                        {r.status !== "pending" && (
-                                            <span className="text-gray-400 text-xs">
-                                                —
-                                            </span>
+                                        ) : (
+                                            <span className="text-gray-400 text-xs">—</span>
                                         )}
                                     </td>
                                 </tr>

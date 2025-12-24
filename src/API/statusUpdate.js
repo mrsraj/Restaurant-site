@@ -1,10 +1,13 @@
 async function updateMenuStatus(data) {
     try {
+        const userInfo = JSON.parse(localStorage.getItem("user_info"));
+        const token = userInfo?.token;
+
         const response = await fetch("http://localhost:3000/api/admin/status", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}` // if using JWT
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(data)
         });

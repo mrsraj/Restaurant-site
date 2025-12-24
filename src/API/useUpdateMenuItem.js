@@ -8,9 +8,15 @@ const useUpdateMenuItem = (setMenuItems, setError) => {
         try {
             setUpdating(true);
             setError(null);
-
+            const userInfo = JSON.parse(localStorage.getItem("user_info"));
+            const token = userInfo?.token;
+            
             const res = await fetch("http://localhost:3000/api/menu", {
-                method: "UPDATE"
+                method: "UPDATE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             });
 
 

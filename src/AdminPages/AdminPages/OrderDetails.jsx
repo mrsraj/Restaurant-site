@@ -2,8 +2,8 @@
 function OrderDetailsModal({ order, onClose }) {
     if (!order) return null;
 
-    const total = order.products.reduce(
-        (sum, p) => sum + Number(p.line_total), 0);
+    console.log("order = ",order);
+    
 
     const statusStyle = {
         pending: "bg-yellow-50 text-yellow-700 ring-yellow-200",
@@ -49,7 +49,7 @@ function OrderDetailsModal({ order, onClose }) {
                             className={`px-4 py-1.5 rounded-full text-xs font-semibold ring-1
                             ${statusStyle[order.status] || statusStyle.pending}`}
                         >
-                            {order.status || "pending"}
+                            {order.order_status}
                         </span>
                     </div>
 
