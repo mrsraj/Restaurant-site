@@ -1,34 +1,34 @@
 
 import { useEffect, useState } from "react";
+import updateReserveStatus from "../../API/updatereserveStatus";
 
 export default function Reservations() {
     const [reservations, setReservations] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     useEffect(() => {
         fetch("http://localhost:3000/api/table/getreserv")
             .then((res) => res.json())
             .then((data) => setReservations(data));
-    }, []);
- 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+    }, [refresh]);
 
-    const updateStatus = (id, status) => {
-        // Optimistic UI update
-        setReservations((prev) =>
-            prev.map((r) =>
-                r.id === id ? { ...r, status } : r
-            )
-        );
+    const updateStatus = async (id, status) => {
+        try {
+            const res = await updateReserveStatus(id, status);
 
-        // Backend update (example)
-        fetch(`/api/reservations/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status }),
-        });
+            // toggle refresh to re-fetch data
+            setRefresh(prev => !prev);
+
+            console.log("Reservation updated:", res);
+        } catch (error) {
+            console.error("Failed to update status:", error.message);
+        }
     };
+
 
     return (
         <div className="p-6 bg-white rounded-xl shadow-lg">
