@@ -8,6 +8,8 @@ import CartPage from "./CartPage";
 import ModernLoader from "../Common/ModernLoader";
 import OrderStatusModal from "../Features/OrderStatusCard";
 
+import Payment from "../payment/Payment";
+
 export default function Menu() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
@@ -137,6 +139,8 @@ export default function Menu() {
         open={openModal}
         onClose={() => setOpenModal(false)}
       />
+
+      <Payment/>
 
       {/* Cart Modal/Page */}
       <CartPage isOpen={openCart} onClose={() => setOpenCart(false)} />
