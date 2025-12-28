@@ -65,7 +65,7 @@ export default function Orders() {
 
     return (
         <div className="min-h-screen bg-gray-100 p-4">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-1">
                 <h1 className="text-3xl font-bold text-gray-800">Orders Management</h1>
                 <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl shadow-sm border">
                     <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-100 text-blue-600 font-bold">#</div>
@@ -77,7 +77,7 @@ export default function Orders() {
             </div>
 
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="max-h-[87vh] overflow-y-auto">
+                <div className="max-h-[85vh] overflow-y-auto">
                     <table className="min-w-full text-sm">
                         <thead className="bg-gray-50 sticky top-0 z-10">
                             <tr className="text-gray-600 uppercase text-xs tracking-wider">
