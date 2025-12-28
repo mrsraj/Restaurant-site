@@ -8,8 +8,6 @@ import CartPage from "./CartPage";
 import ModernLoader from "../Common/ModernLoader";
 import OrderStatusModal from "../Features/OrderStatusCard";
 
-import Payment from "../payment/Payment";
-
 export default function Menu() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
@@ -106,14 +104,6 @@ export default function Menu() {
         </div>
       </div>
 
-      {/* Scroll to Top Button */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg z-30"
-      >
-        ↑
-      </button>
-
       {/* Open Cart Button */}
       <button
         onClick={() => setOpenCart(true)}
@@ -139,8 +129,6 @@ export default function Menu() {
         open={openModal}
         onClose={() => setOpenModal(false)}
       />
-
-      <Payment/>
 
       {/* Cart Modal/Page */}
       <CartPage isOpen={openCart} onClose={() => setOpenCart(false)} />
