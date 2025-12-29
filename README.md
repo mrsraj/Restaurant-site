@@ -79,9 +79,12 @@ restaurant-admin-dashboard/
 
 │── src/
 
-│   ├── AdminPages/     # Dashboard, Menu, Orders, etc.
-│   ├── components/     # Reusable UI components
-│   ├── context/        # Context API (global state)
+│   ├── AdminPages/
+# Dashboard, Menu, Orders, etc.
+│   ├── components/   
+# Reusable UI components
+│   ├── context/   
+# Context API (global state)
 │   ├── Router/         # App routing
 │   ├── App.jsx         # Root component
 │   └── main.jsx        # Entry point
