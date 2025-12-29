@@ -37,11 +37,13 @@ Currently, two official plugins are available:
     
 
 🛒 Orders Management
+
     View all customer orders
     Accept ✅ or Decline ❌ orders
     Track order status dynamically
 
 🔔 Notifications (Toast)
+
     Integrated react-hot-toast (or react-toastify)
     Displays feedback for:
     Order accepted / declined
@@ -49,6 +51,7 @@ Currently, two official plugins are available:
     Payment success / failure
 
 💳 Payments (Razorpay)
+
    Integrated Razorpay Checkout
    
    Supports:
@@ -57,10 +60,12 @@ Currently, two official plugins are available:
          Ready for Test Mode & Production Mode
 
 🔒 Authentication (Planned)
+
      Admin login → Admin dashboard pages
      Normal users → Frontend pages
 
 🛠️ Tech Stack
+
     Frontend: React (Vite), Tailwind CSS, React Router
     State Management: Context API (Redux optional upgrade)
     Charts: React Chart.js
@@ -69,8 +74,11 @@ Currently, two official plugins are available:
     Payments: Razorpay
 
 📂 Folder Structure
+
 restaurant-admin-dashboard/
+
 │── src/
+
 │   ├── AdminPages/     # Dashboard, Menu, Orders, etc.
 │   ├── components/     # Reusable UI components
 │   ├── context/        # Context API (global state)
@@ -83,7 +91,9 @@ restaurant-admin-dashboard/
 │── README.md           # Documentation
 
 📦 Install Dependencies
+
 npm install
 
 ▶️ Start Development Server
+
 npm run dev
