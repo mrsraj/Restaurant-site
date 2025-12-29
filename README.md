@@ -97,7 +97,7 @@ restaurant-admin-dashboard/
 
 │── README.md           # Documentation
 
-📦 Install Dependencies
+# Install Dependencies
 
 npm install
 
