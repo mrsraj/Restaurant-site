@@ -16,16 +16,25 @@ Currently, two official plugins are available:
 
 🚀 Features
 📊 Dashboard Overview
+
     Today’s Orders
+    
     Revenue Tracking
+    
     Most Ordered Items
+    
     Previous Orders & Revenue
+    
     Simple charts using React Chart.js
 
 📜 Menu Management
+
     Add new menu items (image, price, discount, etc.)
+    
     Update or delete existing menu items
+    
     View menu items in a table with action buttons
+    
 
 🛒 Orders Management
     View all customer orders
