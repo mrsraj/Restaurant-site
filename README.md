@@ -79,18 +79,22 @@ restaurant-admin-dashboard/
 
 │── src/
 
-│   ├── AdminPages/
-# Dashboard, Menu, Orders, etc.
-│   ├── components/   
-# Reusable UI components
-│   ├── context/   
-# Context API (global state)
+│   ├── AdminPages/     # Dashboard, Menu, Orders, etc.
+
+│   ├── components/     # Reusable UI components
+
+│   ├── context/        # Context API (global state)
+
 │   ├── Router/         # App routing
+
 │   ├── App.jsx         # Root component
+
 │   └── main.jsx        # Entry point
 │
 │── public/             # Static assets
+
 │── package.json        # Dependencies
+
 │── README.md           # Documentation
 
 📦 Install Dependencies
