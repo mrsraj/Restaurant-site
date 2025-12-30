@@ -10,8 +10,8 @@ export default function Booking() {
     const userInfo = JSON.parse(localStorage.getItem("user_info"));
     const user_id = userInfo?.user_id;
 
-     const { Auth } = useMyContext();
-     const navigate = useNavigate();
+    const { Auth } = useMyContext();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         customer_name: "",
