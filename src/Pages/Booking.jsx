@@ -1,12 +1,17 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import TableReservationAPI from "../API/TableReservationAPI";
+import { useMyContext } from "../context/AppContext";
 
 export default function Booking() {
     const [error, setError] = useState('');
     const userInfo = JSON.parse(localStorage.getItem("user_info"));
     const user_id = userInfo?.user_id;
+
+     const { Auth } = useMyContext();
+     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         customer_name: "",
@@ -28,6 +33,11 @@ export default function Booking() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!Auth) {
+            navigate('/login', { replace: true });
+            return;
+        }
 
         try {
             const res = await TableReservationAPI(formData);
