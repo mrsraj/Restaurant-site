@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Register() {
     const navigate = useNavigate();
@@ -7,6 +8,7 @@ function Register() {
     const [formData, setFormData] = useState({
         username: "",
         email: "",
+        mob_no: "",
         role: "user",
         password: "",
         confirmPassword: "",
@@ -34,11 +36,11 @@ function Register() {
                 throw new Error(data.message || 'Registration failed');
             }
 
-            console.log('Success:', data);
+            toast.success(data.message);
             return true;
         } catch (error) {
             console.error('Error:', error.message);
-            alert(error.message);
+            toast.error(error.message);
             return false;
         }
     }
@@ -47,9 +49,15 @@ function Register() {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
         }
+
+        if (formData.email && !formData.email.includes("@gmail.com")) {
+            toast.error("Please enter a valid email(@gmail.com)");
+            return;
+        }
+
 
         const success = await handleApi();
 
@@ -58,9 +66,10 @@ function Register() {
                 username: "",
                 email: "",
                 password: "",
+                mob_no: "",
                 confirmPassword: "",
             });
-            navigate("/");
+            navigate("/login");
         }
     };
 
@@ -85,14 +94,23 @@ function Register() {
                         />
                     </div>
                     <div>
-                        <label className="block mb-1 font-medium">Email</label>
+                        <label className="block mb-1 font-medium">Email(Optional)</label>
                         <input
                             type="email"
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
                             className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-red-500"
-                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block mb-1 font-medium">Mobile No(Whatsapp)</label>
+                        <input
+                            type="text"
+                            name="mob_no"
+                            value={formData.mob_no}
+                            onChange={handleChange}
+                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-red-500"
                         />
                     </div>
                     <div>

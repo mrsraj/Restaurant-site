@@ -4,7 +4,10 @@ import ApiFetching from "../API/api";
 import { useMyContext } from "../context/AppContext";
 
 export default function Login() {
-    const { setUser ,setAuth} = useMyContext();
+    const { setUser, setAuth } = useMyContext();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,9 +18,6 @@ export default function Login() {
         username: "",
         password: "",
     });
-
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -71,7 +71,7 @@ export default function Login() {
                 <form onSubmit={handleSubmit} className="space-y-4">
 
                     <div>
-                        <label className="block mb-1 font-medium">Username</label>
+                        <label className="block mb-1 font-medium">Mobile No</label>
                         <input
                             type="text"
                             name="username"
@@ -113,6 +113,16 @@ export default function Login() {
                         Register
                     </Link>
                 </p>
+
+                {/* Forgot Button */}
+                <div className="text-center mt-4">
+                    <Link
+                        to="/forget-password"
+                        className="text-sm text-orange-500 hover:underline"
+                    >
+                        Forgot Password?
+                    </Link>
+                </div>
             </div>
         </div>
     );

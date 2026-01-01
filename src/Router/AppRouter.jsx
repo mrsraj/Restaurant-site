@@ -9,7 +9,8 @@ import Contact from "../Pages/Contact";
 import About from "../Pages/About";
 import Login from "../Authentication/Login";
 import Register from "../Authentication/Register";
-import NotFound from "../Common/DefaultComponent";
+import VerifyOtp from "../Authentication/VerifyOtp";
+import ForgetPassword from "../Authentication/ForgetPassword";
 // import ChatApp from "../Chating/chatApp";
 
 
@@ -33,6 +34,8 @@ function AppContent() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/forget-password" element={<ForgetPassword />} />
+                    <Route path="/verify-otp" element={<VerifyOtp />} />
 
                     {/* Catch-all route */}
                     <Route path="*" element={<Home />} />
