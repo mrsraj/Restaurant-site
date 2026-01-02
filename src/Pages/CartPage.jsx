@@ -1,6 +1,9 @@
 // src/components/CartPage.jsx
 import React, { useEffect, useState } from "react";
 import { createOrder } from "../services/orderService";
+import toast from "react-hot-toast";
+const userInfo = JSON.parse(localStorage.getItem("user_info"));
+const customer_id = userInfo?.user_id;
 
 /* ---------------- Razorpay Loader ---------------- */
 function loadRazorpayScript() {
@@ -42,7 +45,7 @@ function CartPage({ isOpen, onClose }) {
     /* ---------------- MAIN ORDER HANDLER ---------------- */
     async function handleOrder() {
         if (!cart.length) {
-            alert("Cart is empty");
+            toast.error("Cart is empty");
             return;
         }
 
@@ -68,7 +71,7 @@ function CartPage({ isOpen, onClose }) {
 
             // 2️⃣ CASH PAYMENT → DONE
             if (paymentMethod === "cash") {
-                alert("Order placed successfully (Cash)");
+                toast.success("Order placed successfully (Cash)");
                 localStorage.removeItem("cart");
                 onClose();
                 return;
@@ -77,7 +80,7 @@ function CartPage({ isOpen, onClose }) {
             // 3️⃣ ONLINE PAYMENT → Razorpay
             const razorpayLoaded = await loadRazorpayScript();
             if (!razorpayLoaded) {
-                alert("Razorpay SDK failed to load");
+                toast.error("Razorpay SDK failed to load");
                 return;
             }
 
@@ -92,29 +95,31 @@ function CartPage({ isOpen, onClose }) {
                 order_id: razorpayOrder.id,
 
                 handler: async function (response) {
+                    console.log("response = ", response);
+
                     try {
                         const res = await fetch(
                             "http://localhost:3000/api/payments/verify-payment",
                             {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ ...response, invoice_id })
+                                body: JSON.stringify({ ...response, invoice_id, customer_id })
                             }
                         );
 
                         const data = await res.json();
 
                         if (!res.ok || !data.success) {
-                            alert("Payment verification failed");
+                            toast.error("Payment verification failed");
                             return;
                         }
 
-                        alert("Payment successful!");
+                        toast.success("Payment successful!");
                         localStorage.removeItem("cart");
                         onClose();
                     } catch (err) {
                         console.error(err);
-                        alert("Payment verification failed");
+                        toast.error("Payment verification failed");
                     }
                 },
 

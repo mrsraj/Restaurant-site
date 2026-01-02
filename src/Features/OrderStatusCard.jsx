@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function OrderStatusModal({ invoiceId, open, onClose }) {
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);
+    const savedInvoice = localStorage.getItem("invoice_id");
 
     useEffect(() => {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
@@ -16,7 +17,7 @@ export default function OrderStatusModal({ invoiceId, open, onClose }) {
             try {
                 setLoading(true);
                 const res = await fetch(
-                    `http://localhost:3000/api/order/status/${invoiceId}`,
+                    `http://localhost:3000/api/order/status/${savedInvoice}`,
                     {
                         method: "GET",
                         headers: {
