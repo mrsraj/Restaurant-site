@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MoreVertical, Edit, Trash2 } from "lucide-react";
 import MenuFetching from "../../API/menuapi";
 import ModernLoader from "../../Common/ModernLoader";
-import MenuFormModal from "../UpdatePages/UpdateMenu";
+import UpdateMenu from "../UpdatePages/UpdateMenu";
 import AddMenuItem from "../UpdatePages/AddMenuItem";
 
 import useAddMenuItem from "../../API/useAddMenuItem";
@@ -176,7 +176,7 @@ const Menu = () => {
 
             {/* Modal for Edit Item */}
             {isModalOpen && (
-                <MenuFormModal
+                <UpdateMenu
                     isOpen={isModalOpen}
                     onClose={closeModal}
                     initialData={editingId ? menuItems.find((i) => i.id === editingId) : null}
