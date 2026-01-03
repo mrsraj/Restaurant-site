@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import useUpdateMenuItem from "../../API/useUpdateMenuItem";
 
 const EMPTY_ITEM = {
     name: "",
@@ -9,12 +11,16 @@ const EMPTY_ITEM = {
     is_active: 1,
     image_file: null,
     image_preview: "",
+    old_image: "", // ✅
 };
 
 const UpdateMenu = ({ isOpen, onClose, editItem }) => {
     const [formData, setFormData] = useState(EMPTY_ITEM);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const { updating, updateMenuItem } = useUpdateMenuItem(setError);
+    console.log("Error = ", error);
 
     /* Populate form for UPDATE only */
     useEffect(() => {
@@ -30,9 +36,11 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
                 image_preview: editItem.image_urls
                     ? `http://localhost:3000/uploads/${editItem.image_urls}`
                     : "",
+                old_image: editItem.image_urls || "", // ✅ ADD THIS
             });
         }
     }, [editItem]);
+
 
     if (!isOpen || !editItem) return null;
 
@@ -59,15 +67,16 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
         e.preventDefault();
         setError("");
 
-        if (!formData.name.trim()) return setError("Name is required");
-        if (!formData.price || formData.price <= 0)
-            return setError("Valid price is required");
+        // Validation
+        if (!formData.name.trim()) {
+            return setError("Name is required");
+        }
 
-        const token = localStorage.getItem("token");
-        if (!token) return setError("Unauthorized");
+        if (!formData.price || Number(formData.price) <= 0) {
+            return setError("Valid price is required");
+        }
 
         const data = new FormData();
-        data.append("id", editItem.id);
         data.append("name", formData.name);
         data.append("descriptions", formData.descriptions);
         data.append("price", formData.price);
@@ -75,35 +84,26 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
         data.append("c_name", formData.c_name);
         data.append("is_active", formData.is_active);
 
+        // ✅ If new image selected
         if (formData.image_file) {
             data.append("image", formData.image_file);
+
+            // ✅ Send old image name so backend can delete it
+            data.append("old_image", formData.old_image);
         }
 
         try {
             setLoading(true);
-
-            const res = await fetch(
-                "http://localhost:3000/api/menu/upload",
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: data,
-                }
-            );
-
-            if (!res.ok) {
-                throw new Error("Failed to update menu item");
-            }
-
-            onClose();
+            await updateMenuItem(editItem.id, data);  // ✅ call hook with FormData
+            onClose(); // ✅ close modal
         } catch (err) {
-            setError(err.message);
+            toast.error(err.message || "Failed to update menu item"); // show toast instead of inline error
         } finally {
             setLoading(false);
         }
+
     };
+
 
     return (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 px-2">
@@ -197,14 +197,11 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
                         />
                     )}
 
-                    {/* ✅ Save Button */}
                     <button
+                        type="submit"
                         disabled={loading}
                         className={`w-full px-4 py-2 rounded text-white
-                        ${loading
-                                ? "bg-gray-400 cursor-not-allowed"
-                                : "bg-green-600 hover:bg-green-700"
-                            }`}
+                       ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"}`}
                     >
                         {loading ? "Updating..." : "Update Item"}
                     </button>

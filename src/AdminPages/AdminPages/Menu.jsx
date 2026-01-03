@@ -1,28 +1,29 @@
 import { useState, useEffect } from "react";
 import { MoreVertical, Edit, Trash2 } from "lucide-react";
+import toast from "react-hot-toast";
+//Components
 import MenuFetching from "../../API/menuapi";
 import ModernLoader from "../../Common/ModernLoader";
-import UpdateMenu from "../UpdatePages/UpdateMenu";
-import AddMenuItem from "../UpdatePages/AddMenuItem";
-
+import UpdateMenu from "../UpdatePages/UpdateMenuForm";
+import AddMenuItemForm from "../UpdatePages/AddMenuItem";
+//Hooks
 import useAddMenuItem from "../../API/useAddMenuItem";
 import useDeleteMenuItem from "../../API/useDeleteMenuItem";
-import useUpdateMenuItem from "../../API/useUpdateMenuItem";
+
 
 const Menu = () => {
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
 
     // Modal state (used for Edit)
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingId, setEditingId] = useState(null); // null = add mode, id = edit mode
+    const [editingItem, setEditingItem] = useState(null); // null = add mode, id = edit mode
 
     // Add form modal (separate)
     const [openModal, setOpenModal] = useState(false);
 
-    const { updating, updateMenuItem } = useUpdateMenuItem(setMenuItems, setError);
+    //Hooks
     const { adding, addMenuItem } = useAddMenuItem(setMenuItems, setError, setOpenModal);
     const { deleting, deleteMenuItem } = useDeleteMenuItem(setMenuItems, setError);
 
@@ -62,21 +63,13 @@ const Menu = () => {
 
     // open edit modal
     const openEditModal = (item) => {
-        setEditingId(item.id);
+        setEditingItem(item);
         setIsModalOpen(true);
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        setEditingId(null);
-    };
-
-    // Edite , Update , Delete
-    const handleSaveItem = async (payload) => {
-        const id = editingId || payload.id;
-        await updateMenuItem(id, payload);
-        setIsModalOpen(false);
-        setEditingId(null);
+        setEditingItem(null);
     };
 
     const handleAddMenu = async (payload) => {
@@ -94,7 +87,7 @@ const Menu = () => {
             </h2>
 
             {/* Loader */}
-            {(loading || saving) && (
+            {loading && (
                 <div className="flex justify-center my-2">
                     <ModernLoader />
                 </div>
@@ -146,7 +139,7 @@ const Menu = () => {
                             <button className="p-2 bg-[#1cd8cb] rounded-full shadow hover:bg-gray-100">
                                 <MoreVertical size={18} />
                             </button>
-                            <div className="absolute right-0 top-7 mt-2 w-32 bg-[#1cd8cb] shadow-lg rounded hidden group-hover:block z-10">
+                            <div className="absolute right-0 top-6 mt-2 w-32 bg-[#1cd8cb] shadow-lg rounded hidden group-hover:block z-10">
                                 <button
                                     onClick={() => openEditModal(item)}
                                     className="flex items-center gap-2 px-3 py-2 w-full hover:bg-green-500 text-sm"
@@ -179,14 +172,13 @@ const Menu = () => {
                 <UpdateMenu
                     isOpen={isModalOpen}
                     onClose={closeModal}
-                    initialData={editingId ? menuItems.find((i) => i.id === editingId) : null}
-                    onSubmit={handleSaveItem}
+                    editItem={editingItem}
                 />
             )}
 
             {/* Add Menu Item Modal */}
             {openModal && (
-                <AddMenuItem
+                <AddMenuItemForm
                     onClose={() => setOpenModal(false)}
                     onSubmit={handleAddMenu}   // 👈 Add API
                 />
