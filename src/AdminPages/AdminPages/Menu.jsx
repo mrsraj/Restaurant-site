@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MoreVertical, Edit, Trash2 } from "lucide-react";
 import MenuFetching from "../../API/menuapi";
 import ModernLoader from "../../Common/ModernLoader";
-import MenuFormModal from "../UpdatePages/MenuFormModal";
+import MenuFormModal from "../UpdatePages/UpdateMenu";
 import AddMenuItem from "../UpdatePages/AddMenuItem";
 
 import useAddMenuItem from "../../API/useAddMenuItem";
