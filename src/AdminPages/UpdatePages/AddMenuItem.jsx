@@ -13,7 +13,7 @@ const EMPTY_ITEM = {
     is_active: 1,
 };
 
-const AddMenuItem = ({ onClose, onSubmit }) => {
+const AddMenuItemForm = ({ onClose, onSubmit }) => {
     const [formData, setFormData] = useState(EMPTY_ITEM);
     const [error, setError] = useState("");
     const [categories, setCategories] = useState([]);
@@ -227,4 +227,4 @@ const AddMenuItem = ({ onClose, onSubmit }) => {
     );
 };
 
-export default AddMenuItem;
+export default AddMenuItemForm;
