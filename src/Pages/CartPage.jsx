@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { createOrder } from "../services/orderService";
 import toast from "react-hot-toast";
+
 const userInfo = JSON.parse(localStorage.getItem("user_info"));
 const customer_id = userInfo?.user_id;
 
@@ -45,13 +46,13 @@ function CartPage({ isOpen, onClose }) {
     /* ---------------- MAIN ORDER HANDLER ---------------- */
     async function handleOrder() {
         if (!cart.length) {
-            toast.error("Cart is empty");
+            toast.error("Cart is empty.");
             return;
         }
 
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         if (!userInfo?.user_id) {
-            alert("User not logged in");
+            toast.error("User not logged in. Please login again.");
             return;
         }
 
