@@ -76,7 +76,7 @@ const Menu = () => {
     const handleAddMenu = async (payload) => {
         const res = await addMenuItem(payload);
         if (res.success == 'true') {
-            toast.success(res.message);
+            toast.success("deleted successfully");
         }
         else {
             toast.error(res.message);
@@ -85,13 +85,13 @@ const Menu = () => {
 
     const handleDelete = async (id) => {
         const res = await deleteMenuItem(id);
-        if (res.success == 'true') {
+        if (res.status == "200") {
             toast.success(res.message);
-        }
-        else {
+        } else {
             toast.error(res.message);
         }
     };
+
 
     return (
         <div className="relative bg-[#dedcdc]">

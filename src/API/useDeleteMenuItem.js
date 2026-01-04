@@ -13,8 +13,6 @@ const useDeleteMenuItem = (setMenuItems, setError) => {
             const userInfo = JSON.parse(localStorage.getItem("user_info"));
             const token = userInfo?.token;
 
-            console.log("TOKEN SENT:", token);
-
             const res = await fetch(`http://localhost:3000/api/menu/delete/${id}`, {
                 method: "DELETE",
                 headers: {
@@ -30,7 +28,7 @@ const useDeleteMenuItem = (setMenuItems, setError) => {
 
             // UPDATE UI
             setMenuItems((prev) => prev.filter((item) => item.id !== id));
-
+            return res;
         } catch (err) {
             console.error(err);
             setError(err.message || "Failed to delete menu item");

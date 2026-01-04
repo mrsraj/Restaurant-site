@@ -28,8 +28,13 @@ export default function Orders() {
                 setLoadingPage(false);
             }
         };
-
         fetchOrders();
+        const timer = setTimeout(() => {
+            setRefresh(!refresh);
+        }, 30000);
+
+        return () => clearTimeout(timer);
+
     }, [refresh]);
 
     const updateOrderStatus = async (id, status) => {
@@ -111,9 +116,9 @@ export default function Orders() {
                                         </td>
                                         <td className="p-4">
                                             {order.payment_status === "paid" ? (
-                                                <span className="text-green-600 font-semibold">● paid</span>
+                                                <span className="text-green-600 font-semibold">● {order.payment_status}</span>
                                             ) : (
-                                                <span className="text-red-600 font-semibold">● unpaid</span>
+                                                <span className="text-red-600 font-semibold">● {order.payment_status}</span>
                                             )}
                                         </td>
                                         <td className="p-4 text-center space-x-2 flex justify-center">
@@ -169,6 +174,17 @@ export default function Orders() {
                                             >
                                                 {loadingId === order.invoice_id ? "⏳" : "Mark Paid"}
                                             </button>
+
+                                            {/* Delivery button */}
+                                            <button
+                                                disabled={order.order_status !== 'accepted'}
+                                                onClick={() => updateOrderStatus(order.invoice_id, "delivered")}
+                                                className={`px-3 py-1.5 rounded-lg text-white text-xs font-semibold transition
+                                                ${order.order_status === 'accepted' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}`}
+                                            >
+                                                Delivered
+                                            </button>
+
                                         </td>
                                     </tr>
                                 ))
