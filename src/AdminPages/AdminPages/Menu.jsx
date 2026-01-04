@@ -74,11 +74,23 @@ const Menu = () => {
     };
 
     const handleAddMenu = async (payload) => {
-        await addMenuItem(payload);
+        const res = await addMenuItem(payload);
+        if (res.success == 'true') {
+            toast.success(res.message);
+        }
+        else {
+            toast.error(res.message);
+        }
     };
 
     const handleDelete = async (id) => {
-        await deleteMenuItem(id);
+        const res = await deleteMenuItem(id);
+        if (res.success == 'true') {
+            toast.success(res.message);
+        }
+        else {
+            toast.error(res.message);
+        }
     };
 
     return (
