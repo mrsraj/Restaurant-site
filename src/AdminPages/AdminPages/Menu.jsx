@@ -19,6 +19,7 @@ const Menu = () => {
     // Modal state (used for Edit)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState(null); // null = add mode, id = edit mode
+    const [refresh, setRefresh] = useState(false);
 
     // Add form modal (separate)
     const [openModal, setOpenModal] = useState(false);
@@ -51,7 +52,7 @@ const Menu = () => {
         }
 
         fetchData();
-    }, []);
+    }, [refresh]);
 
     // Calculate percentage off (price = actual, discount = discounted)
     const getDiscountPercent = (actual, discounted) => {
@@ -115,7 +116,7 @@ const Menu = () => {
                     >
                         {/* Item Image */}
                         <img
-                            src={`http://localhost:3000/uploads/${item.image_urls}`}
+                            src={item.image_urls}
                             alt={item.name}
                             className="w-full h-40 object-cover rounded-md mb-3"
                         />
@@ -168,13 +169,14 @@ const Menu = () => {
             </button>
 
             {/* Modal for Edit Item */}
-            {isModalOpen && (
-                <UpdateMenu
-                    isOpen={isModalOpen}
-                    onClose={closeModal}
-                    editItem={editingItem}
-                />
-            )}
+            <UpdateMenu
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                editItem={editingItem}
+                refresh={refresh}
+                setRefresh={setRefresh}
+            />
+
 
             {/* Add Menu Item Modal */}
             {openModal && (

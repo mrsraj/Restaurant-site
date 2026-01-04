@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useUpdateMenuItem from "../../API/useUpdateMenuItem";
+import getCategory from "../../API/getCategory";
 
 const EMPTY_ITEM = {
     name: "",
     descriptions: "",
     price: "",
     discount: "",
-    c_name: "Breakfast",
+    category_id: "",
     is_active: 1,
     image_file: null,
     image_preview: "",
     old_image: "", // ✅
 };
 
-const UpdateMenu = ({ isOpen, onClose, editItem }) => {
+const UpdateMenu = ({ isOpen, onClose, editItem, refresh, setRefresh }) => {
     const [formData, setFormData] = useState(EMPTY_ITEM);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [categories, setCategories] = useState([]);
 
     const { updating, updateMenuItem } = useUpdateMenuItem(setError);
-    console.log("Error = ", error);
 
     /* Populate form for UPDATE only */
     useEffect(() => {
@@ -30,17 +31,25 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
                 descriptions: editItem.descriptions || "",
                 price: editItem.price || "",
                 discount: editItem.discount || "",
-                c_name: editItem.c_name || "",
+                category_id: editItem.cat_id || "",
                 is_active: editItem.is_active ?? 1,
                 image_file: null,
-                image_preview: editItem.image_urls
-                    ? `http://localhost:3000/uploads/${editItem.image_urls}`
-                    : "",
+                image_preview: editItem.image_urls || "",
                 old_image: editItem.image_urls || "", // ✅ ADD THIS
             });
         }
     }, [editItem]);
 
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const res = await getCategory();
+            if (Array.isArray(res)) {
+                setCategories(res);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     if (!isOpen || !editItem) return null;
 
@@ -81,7 +90,7 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
         data.append("descriptions", formData.descriptions);
         data.append("price", formData.price);
         data.append("discount", formData.discount || 0);
-        data.append("c_name", formData.c_name);
+        data.append("category_id", formData.category_id);
         data.append("is_active", formData.is_active);
 
         // ✅ If new image selected
@@ -94,10 +103,13 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
 
         try {
             setLoading(true);
-            await updateMenuItem(editItem.id, data);  // ✅ call hook with FormData
-            onClose(); // ✅ close modal
+            const res = await updateMenuItem(editItem.id, data);
+            if (res.success = "true") {
+                setRefresh(!refresh);
+                onClose();
+            }
         } catch (err) {
-            toast.error(err.message || "Failed to update menu item"); // show toast instead of inline error
+            toast.error(err.message || "Failed to update menu item");
         } finally {
             setLoading(false);
         }
@@ -167,15 +179,19 @@ const UpdateMenu = ({ isOpen, onClose, editItem }) => {
                     />
 
                     <select
-                        name="c_name"
-                        value={formData.c_name}
+                        name="category_id"
+                        value={formData.category_id}
                         onChange={handleChange}
                         className="w-full border px-3 py-2 rounded"
                     >
-                        <option>Breakfast</option>
-                        <option>Lunch</option>
-                        <option>Dinner</option>
+                        <option value="">Select Category</option>
+                        {categories.map((cat) => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.c_name}
+                            </option>
+                        ))}
                     </select>
+
 
                     <label className="flex items-center gap-2">
                         <input
