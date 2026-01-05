@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "../config/api";
 
 function Register() {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ function Register() {
         const { confirmPassword, ...dataToSend } = formData;
 
         try {
-            const response = await fetch('https://ternarytech.online/auth/user/register', {
+            const response = await fetch(`${API_BASE_URL}/auth/user/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
