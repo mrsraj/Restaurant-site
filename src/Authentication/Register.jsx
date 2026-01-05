@@ -22,7 +22,7 @@ function Register() {
         const { confirmPassword, ...dataToSend } = formData;
 
         try {
-            const response = await fetch('http://194.164.150.8:3000/auth/user/register', {
+            const response = await fetch('https://ternarytech.online/auth/user/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
