@@ -1,7 +1,7 @@
-
+import { API_BASE_URL } from "../config/api";
 async function MenuFetching() {
   try {
-    const res = await fetch("http://localhost:3000/api/menu", {
+    const res = await fetch(`${API_BASE_URL}/api/menu`, {
       method: "GET"
     });
 

@@ -13,7 +13,7 @@ const useDeleteMenuItem = (setMenuItems, setError) => {
             const userInfo = JSON.parse(localStorage.getItem("user_info"));
             const token = userInfo?.token;
 
-            const res = await fetch(`http://localhost:3000/api/menu/delete/${id}`, {
+            const res = await fetch(`${API_BASE_URL}/api/menu/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`

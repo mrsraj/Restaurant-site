@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import { API_BASE_URL } from "../config/api";
 const VerifyOtp = () => {
     const [mobNo, setMobNo] = useState("");
     const [otp, setOtp] = useState("");
@@ -19,7 +19,7 @@ const VerifyOtp = () => {
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:3000/auth/verify-otp", {
+            const res = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

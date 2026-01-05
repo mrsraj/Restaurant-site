@@ -1,9 +1,10 @@
 
+import { API_BASE_URL } from "../config/api";
 async function ApiFetching(credential) {
   console.log("credential =", credential);
 
   try {
-    const res = await fetch("http://localhost:3000/auth/user/login", {
+    const res = await fetch(`${API_BASE_URL}/auth/user/login`, {
       method: "POST", // use POST for login
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +18,7 @@ async function ApiFetching(credential) {
 
     const data = await res.json();
     localStorage.setItem("user", data.role);
-     localStorage.setItem("user_info", JSON.stringify(data));
+    localStorage.setItem("user_info", JSON.stringify(data));
     console.log("data =", data);
     return data;
   } catch (error) {

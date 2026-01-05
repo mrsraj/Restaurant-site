@@ -17,7 +17,7 @@ export default function OrderStatusModal({ invoiceId, open, onClose }) {
             try {
                 setLoading(true);
                 const res = await fetch(
-                    `http://localhost:3000/api/order/status/${savedInvoice}`,
+                    `${API_BASE_URL}/api/order/status/${savedInvoice}`,
                     {
                         method: "GET",
                         headers: {

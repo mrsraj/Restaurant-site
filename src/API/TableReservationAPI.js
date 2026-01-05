@@ -1,11 +1,11 @@
-
+import { API_BASE_URL } from "../config/api";
 const TableReservationAPI = async (formData) => {
 
     try {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         const token = userInfo?.token;
 
-        const res = await fetch("http://localhost:3000/api/table/reservation", {
+        const res = await fetch(`${API_BASE_URL}/api/table/reservation`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

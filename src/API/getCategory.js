@@ -1,12 +1,12 @@
+import { API_BASE_URL } from "../config/api";
 async function getCategory() {
-
     try {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
 
         const token = userInfo?.token;
 
         const resp = await fetch(
-            "http://localhost:3000/api/menu/categories",
+            `${API_BASE_URL}/api/menu/categories`,
             {
                 method: "GET",
                 headers: {

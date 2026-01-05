@@ -1,4 +1,4 @@
-
+import { API_BASE_URL } from "../config/api";
 async function updateReserveStatus(id, status) {
     try {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
@@ -6,7 +6,7 @@ async function updateReserveStatus(id, status) {
         const token = userInfo?.token;
         const user_id = userInfo?.user_id;
 
-        const res = await fetch("http://localhost:3000/api/table/reserveStatus",
+        const res = await fetch(`${API_BASE_URL}/api/table/reserveStatus`,
             {
                 method: "PUT",
                 headers: {

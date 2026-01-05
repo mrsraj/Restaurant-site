@@ -16,7 +16,7 @@ const useUpdateMenuItem = (setError) => {
             // Append id to FormData
             formData.append("id", id);
 
-            const res = await fetch("http://localhost:3000/api/update/menuitem", {
+            const res = await fetch(`${API_BASE_URL}/api/update/menuitem`, {
                 method: "PUT", // correct for update
                 headers: {
                     Authorization: `Bearer ${token}`, // only auth header, no Content-Type

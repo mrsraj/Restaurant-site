@@ -1,5 +1,6 @@
 // src/API/useAddMenuItem.js
 import { useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 const useAddMenuItem = (setMenuItems, setError, setOpenModal) => {
     const [adding, setAdding] = useState(false);
@@ -12,7 +13,7 @@ const useAddMenuItem = (setMenuItems, setError, setOpenModal) => {
             const userInfo = JSON.parse(localStorage.getItem("user_info"));
             const token = userInfo?.token;
 
-            const response = await fetch("http://localhost:3000/api/menu/additem",{
+            const response = await fetch(`${API_BASE_URL}/api/menu/additem`,{
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${token}`,

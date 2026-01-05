@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "../../config/api";
+
 import { useEffect, useState } from "react";
 import updateReserveStatus from "../../API/updatereserveStatus";
 import ModernLoader from "../../Common/ModernLoader";
@@ -25,7 +27,7 @@ export default function Reservations() {
                 const userInfo = JSON.parse(localStorage.getItem("user_info"));
                 const token = userInfo?.token;
 
-                const res = await fetch("http://localhost:3000/api/table/getreserv", {
+                const res = await fetch(`${API_BASE_URL}/api/table/getreserv`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

@@ -1,9 +1,10 @@
+import { API_BASE_URL } from "../config/api";
 async function updateMenuStatus(data) {
     try {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         const token = userInfo?.token;
 
-        const response = await fetch("http://localhost:3000/api/admin/status", {
+        const response = await fetch(`${API_BASE_URL}/api/admin/status`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -100,7 +100,7 @@ function CartPage({ isOpen, onClose }) {
 
                     try {
                         const res = await fetch(
-                            "http://localhost:3000/api/payments/verify-payment",
+                            `${API_BASE_URL}/api/payments/verify-payment`,
                             {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
@@ -127,7 +127,7 @@ function CartPage({ isOpen, onClose }) {
                 modal: {
                     ondismiss: async () => {
                         try {
-                            await fetch("http://localhost:3000/api/payments/payment-failed", {
+                            await fetch(`${API_BASE_URL}/api/payments/payment-failed`, {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({ invoice_id }),
@@ -155,7 +155,7 @@ function CartPage({ isOpen, onClose }) {
             // Listen for failure event
             rzp.on("payment.failed", async () => {
                 try {
-                    await fetch("http://localhost:3000/api/payments/payment-failed", {
+                    await fetch(`${API_BASE_URL}/api/payments/payment-failed`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ invoice_id }),
