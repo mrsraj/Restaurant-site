@@ -133,7 +133,7 @@ function CartPage({ isOpen, onClose }) {
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({ invoice_id }),
                             });
-                            alert("Payment failed / cancelled");
+                            toast.error("Payment failed / cancelled");
                         } catch (err) {
                             console.error(err);
                         } finally {
@@ -161,7 +161,7 @@ function CartPage({ isOpen, onClose }) {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ invoice_id }),
                     });
-                    alert("Payment failed");
+                    toast.error("Payment failed");
                 } catch (err) {
                     console.error(err);
                 } finally {
@@ -173,7 +173,7 @@ function CartPage({ isOpen, onClose }) {
 
         } catch (error) {
             console.error(error);
-            alert(error.message || "Order failed");
+            toast.error(error.message || "Order failed");
         } finally {
             setIsPlacingOrder(false);
         }
