@@ -6,7 +6,7 @@ const userInfo = JSON.parse(localStorage.getItem("user_info"));
 const token = userInfo?.token;
 
 export async function createOrder(orderData) {
-    const res = await fetch(`${API_BASE_URL}/order/orders`, {
+    const res = await fetch(`${API_BASE_URL}/api/order/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
