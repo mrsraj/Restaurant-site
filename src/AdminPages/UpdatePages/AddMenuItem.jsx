@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getCategory from "../../API/getCategory";
+import toast from "react-hot-toast";
 
 const EMPTY_ITEM = {
     id: null,
@@ -51,13 +52,22 @@ const AddMenuItemForm = ({ onClose, onSubmit }) => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            setFormData((prev) => ({
-                ...prev,
-                image_urls: file,
-            }));
+        if (!file) return;
+
+        const MAX_SIZE = 1 * 1024 * 1024; // 1MB
+
+        if (file.size > MAX_SIZE) {
+            toast.error("Image must be less than 1MB");
+            e.target.value = ""; // reset input
+            return;
         }
+
+        setFormData((prev) => ({
+            ...prev,
+            image_urls: file,
+        }));
     };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -105,7 +115,7 @@ const AddMenuItemForm = ({ onClose, onSubmit }) => {
         }
 
         console.log([...data.entries()]);
-        
+
 
         onClose();
     };

@@ -65,12 +65,21 @@ const UpdateMenu = ({ isOpen, onClose, editItem, refresh, setRefresh }) => {
         const file = e.target.files[0];
         if (!file) return;
 
+        const MAX_SIZE = 1 * 1024 * 1024; // 1MB
+
+        if (file.size > MAX_SIZE) {
+            toast.error("Image must be less than 1MB");
+            e.target.value = ""; // reset file input
+            return;
+        }
+
         setFormData((prev) => ({
             ...prev,
             image_file: file,
             image_preview: URL.createObjectURL(file),
         }));
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -203,7 +212,11 @@ const UpdateMenu = ({ isOpen, onClose, editItem, refresh, setRefresh }) => {
                         Active
                     </label>
 
-                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                    />
 
                     {formData.image_preview && (
                         <img
