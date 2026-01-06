@@ -78,7 +78,7 @@ export default function DishCard({ dish }) {
         <div className="border rounded-lg overflow-hidden shadow hover:shadow-lg transition p-2 bg-[#fff] cursor-pointer">
             {/* Dish Image */}
             <img
-                src={"./images/biryani.jpg"}
+                src={dish.imge_urls}
                 alt={dish.name}
                 className="w-full h-60 object-cover"
             />
