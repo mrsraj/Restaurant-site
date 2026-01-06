@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { createOrder } from "../services/orderService";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "../config/api";
 
 const userInfo = JSON.parse(localStorage.getItem("user_info"));
 const customer_id = userInfo?.user_id;
