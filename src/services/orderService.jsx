@@ -1,9 +1,11 @@
 // src/services/orderService.js
 
 import { API_BASE_URL } from "../config/api";
+import { useMyContext } from "../context/AppContext";
 
 export async function createOrder(orderData,token) {
     console.log("token = ",token);
+    const {setInvoiceId} = useMyContext();
     
     const res = await fetch(`${API_BASE_URL}/api/order/orders`, {
         method: "POST",
@@ -22,6 +24,7 @@ export async function createOrder(orderData,token) {
 
     // Save invoice/order id
     if (data.invoice_id) {
+        setInvoiceId(data.invoice_id);
         localStorage.setItem("invoice_id", data.invoice_id);
     }
 
