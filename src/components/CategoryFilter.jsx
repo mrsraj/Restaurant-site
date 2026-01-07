@@ -1,6 +1,6 @@
 function CategoryFilter({ categories, current, setCategory }) {
     return (
-        <div className="flex flex-col justify-start space-y-3 p-2 bg-white rounded-lg">
+        <div className="flex flex-col justify-start space-y-3 p-2 bg-white h-[90vh] max-h-[90vh] overflow-y-auto rounded-lg">
             <h3 className="text-lg font-semibold mb-2 border-b pb-2">Categories</h3>
 
             {categories.map((cat) => (
