@@ -2,10 +2,7 @@
 
 import { API_BASE_URL } from "../config/api";
 
-const userInfo = JSON.parse(localStorage.getItem("user_info"));
-const token = userInfo?.token;
-
-export async function createOrder(orderData) {
+export async function createOrder(orderData,token) {
     const res = await fetch(`${API_BASE_URL}/api/order/orders`, {
         method: "POST",
         headers: {

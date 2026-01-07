@@ -29,6 +29,9 @@ function CartPage({ isOpen, onClose }) {
     const [paymentMethod, setPaymentMethod] = useState("cash");
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+    const token = userInfo?.token;
+
     useEffect(() => {
         if (isOpen) {
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -68,7 +71,7 @@ function CartPage({ isOpen, onClose }) {
             setIsPlacingOrder(true);
 
             // 1️⃣ Create invoice / order
-            const orderResponse = await createOrder(orderData);
+            const orderResponse = await createOrder(orderData,token);
             console.log("Order Response:", orderResponse);
 
             // 2️⃣ CASH PAYMENT → DONE
