@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { createOrder } from "../services/orderService";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../config/api";
-
+import { useMyContext } from "../context/AppContext";
 const userInfo = JSON.parse(localStorage.getItem("user_info"));
 const customer_id = userInfo?.user_id;
 
@@ -28,6 +28,8 @@ function CartPage({ isOpen, onClose }) {
     const [loading, setLoading] = useState(true);
     const [paymentMethod, setPaymentMethod] = useState("cash");
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+
+    const { setInvoiceId } = useMyContext();
 
     useEffect(() => {
         if (isOpen) {
@@ -57,7 +59,7 @@ function CartPage({ isOpen, onClose }) {
             toast.error("User not logged in. Please login again.");
             return;
         }
-console.log("token = ", token);
+        console.log("token = ", token);
 
         const orderData = {
             user_id: userInfo.user_id,
@@ -70,9 +72,9 @@ console.log("token = ", token);
             setIsPlacingOrder(true);
 
             // 1️⃣ Create invoice / order
-            const orderResponse = await createOrder(orderData,token);
+            const orderResponse = await createOrder(orderData, token);
             console.log("Order Response:", orderResponse);
-
+            setInvoiceId(orderResponse.invoice_id);
             // 2️⃣ CASH PAYMENT → DONE
             if (paymentMethod === "cash") {
                 toast.success("Order placed successfully (Cash)");
