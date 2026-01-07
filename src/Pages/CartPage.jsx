@@ -29,9 +29,6 @@ function CartPage({ isOpen, onClose }) {
     const [paymentMethod, setPaymentMethod] = useState("cash");
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-    const userInfo = JSON.parse(localStorage.getItem("user_info"));
-    const token = userInfo?.token;
-
     useEffect(() => {
         if (isOpen) {
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -55,10 +52,12 @@ function CartPage({ isOpen, onClose }) {
         }
 
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
+        const token = userInfo?.token;
         if (!userInfo?.user_id) {
             toast.error("User not logged in. Please login again.");
             return;
         }
+console.log("token = ", token);
 
         const orderData = {
             user_id: userInfo.user_id,

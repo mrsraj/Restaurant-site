@@ -3,6 +3,8 @@
 import { API_BASE_URL } from "../config/api";
 
 export async function createOrder(orderData,token) {
+    console.log("token = ",token);
+    
     const res = await fetch(`${API_BASE_URL}/api/order/orders`, {
         method: "POST",
         headers: {

@@ -1,5 +1,6 @@
 // src/components/OrderStatusModal.jsx
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config/api";
 
 export default function OrderStatusModal({ invoiceId, open, onClose }) {
     const [order, setOrder] = useState(null);
