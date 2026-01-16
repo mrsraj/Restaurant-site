@@ -43,14 +43,34 @@ export default function Footer() {
                 <div>
                     <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
                     <div className="flex space-x-4">
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-red-500 transition">
-                            <FaFacebookF />
+                        <a
+                            href="https://www.facebook.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Facebook"
+                            className="bg-gray-700 p-2 rounded-full text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                        >
+                            <FaFacebookF size={16} />
                         </a>
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-red-500 transition">
-                            <FaInstagram />
+
+                        <a
+                            href="https://www.instagram.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Instagram"
+                            className="bg-gray-700 p-2 rounded-full text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                        >
+                            <FaInstagram size={16} />
                         </a>
-                        <a href="#" className="bg-gray-700 p-2 rounded-full hover:bg-red-500 transition">
-                            <FaTwitter />
+
+                        <a
+                            href="https://twitter.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Twitter"
+                            className="bg-gray-700 p-2 rounded-full text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
+                        >
+                            <FaTwitter size={16} />
                         </a>
                     </div>
                 </div>
