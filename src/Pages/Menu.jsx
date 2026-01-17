@@ -56,7 +56,7 @@ export default function Menu() {
       : data.filter((item) => item.c_name === category);
 
   return (
-    <div className="max-w-7xl mx-auto p-2 md:flex gap-6 bg-[#d6d5d5] relative">
+    <div className="max-w-7xl mx-auto p-2 md:flex gap-3 bg-[#d6d5d5] relative">
       {/* Mobile Filter Button */}
       <div className="md:hidden flex justify-end mb-4">
         <button
