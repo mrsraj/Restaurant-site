@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 
 const populardishes = [
     {
@@ -61,6 +61,7 @@ const populardishes = [
 
 
 export default function PopularDishes() {
+    const Navigate = useNavigate();
     return (
         <section className="max-w-6xl mx-auto p-6">
             <h2 className="text-2xl font-bold mb-4 text-center">Popular Dishes</h2>
@@ -68,8 +69,9 @@ export default function PopularDishes() {
             <div className="flex space-x-6 overflow-x-auto scrollbar-hide py-2 px-1">
                 {populardishes.map((item, index) => (
                     <div
+                        onClick={()=>{Navigate('/menu')}}
                         key={index}
-                        className="flex flex-col items-center min-w-[100px]"
+                        className="flex flex-col items-center min-w-[100px] cursor-pointer"
                     >
                         <img
                             src={item.img}
