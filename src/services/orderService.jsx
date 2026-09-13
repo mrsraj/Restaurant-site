@@ -1,9 +1,10 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 // src/services/orderService.js
 
 import { API_BASE_URL } from "../config/api";
 
 export async function createOrder(orderData,token) {
-    const res = await fetch(`${API_BASE_URL}/api/order/orders`, {
+    const res = await apiFetch(`${API_BASE_URL}/api/v1/orders`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

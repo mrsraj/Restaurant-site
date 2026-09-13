@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { API_BASE_URL } from "../config/api";
 async function updateReserveStatus(id, status) {
     try {
@@ -6,9 +7,9 @@ async function updateReserveStatus(id, status) {
         const token = userInfo?.token;
         const user_id = userInfo?.user_id;
 
-        const res = await fetch(`${API_BASE_URL}/api/table/reserveStatus`,
+        const res = await apiFetch(`${API_BASE_URL}/api/v1/reservations/${id}`,
             {
-                method: "PUT",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`, // optional

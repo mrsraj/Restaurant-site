@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 // src/components/OrderStatusModal.jsx
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config/api";
@@ -17,8 +18,8 @@ export default function OrderStatusModal({ invoiceId, open, onClose }) {
         const fetchOrder = async () => {
             try {
                 setLoading(true);
-                const res = await fetch(
-                    `${API_BASE_URL}/api/order/status/${savedInvoice}`,
+                const res = await apiFetch(
+                    `${API_BASE_URL}/api/v1/orders/${savedInvoice}`,
                     {
                         method: "GET",
                         headers: {
@@ -29,8 +30,8 @@ export default function OrderStatusModal({ invoiceId, open, onClose }) {
                 const json = await res.json();
 
                 if (isMounted) {
-                    if (json.success && json.data?.length > 0) {
-                        setOrder(json.data[0]);
+                    if (json.success && json.data?.invoice_id) {
+                        setOrder(json.data);
                     } else {
                         setOrder(null);
                     }

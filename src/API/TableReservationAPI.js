@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { API_BASE_URL } from "../config/api";
 const TableReservationAPI = async (formData) => {
 
@@ -5,7 +6,7 @@ const TableReservationAPI = async (formData) => {
         const userInfo = JSON.parse(localStorage.getItem("user_info"));
         const token = userInfo?.token;
 
-        const res = await fetch(`${API_BASE_URL}/api/table/reservation`, {
+        const res = await apiFetch(`${API_BASE_URL}/api/v1/reservations`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

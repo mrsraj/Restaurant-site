@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { useState } from "react";
 import { API_BASE_URL } from "../config/api";
 
@@ -17,8 +18,8 @@ const useUpdateMenuItem = (setError) => {
             // Append id to FormData
             formData.append("id", id);
 
-            const res = await fetch(`${API_BASE_URL}/api/update/menuitem`, {
-                method: "PUT", // correct for update
+            const res = await apiFetch(`${API_BASE_URL}/api/v1/menu-items/${id}`, {
+                method: "PATCH", // correct for update
                 headers: {
                     Authorization: `Bearer ${token}`, // only auth header, no Content-Type
                 },

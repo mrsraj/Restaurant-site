@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config/api";
@@ -14,7 +15,7 @@ const ForgetPassword = () => {
         setError("");
 
         try {
-            const res = await fetch(`${API_BASE_URL}/auth/forget/password`, {
+            const res = await apiFetch(`${API_BASE_URL}/api/v1/password-reset-requests`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ mob_no: mobNo.trim() }),

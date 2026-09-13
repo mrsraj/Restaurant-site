@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 // src/API/useAddMenuItem.js
 import { useState } from "react";
 import { API_BASE_URL } from "../config/api";
@@ -13,7 +14,7 @@ const useAddMenuItem = (setMenuItems, setError, setOpenModal) => {
             const userInfo = JSON.parse(localStorage.getItem("user_info"));
             const token = userInfo?.token;
 
-            const response = await fetch(`${API_BASE_URL}/api/menu/additem`,{
+            const response = await apiFetch(`${API_BASE_URL}/api/v1/menu-items`,{
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${token}`,

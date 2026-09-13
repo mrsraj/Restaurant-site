@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { API_BASE_URL } from "../config/api";
@@ -19,7 +20,7 @@ const VerifyOtp = () => {
         setLoading(true);
 
         try {
-            const res = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+            const res = await apiFetch(`${API_BASE_URL}/api/v1/password-resets`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

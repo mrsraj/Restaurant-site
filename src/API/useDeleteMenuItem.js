@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 // src/API/useDeleteMenuItem.js
 import { useState } from "react";
 import { API_BASE_URL } from "../config/api";
@@ -14,7 +15,7 @@ const useDeleteMenuItem = (setMenuItems, setError) => {
             const userInfo = JSON.parse(localStorage.getItem("user_info"));
             const token = userInfo?.token;
 
-            const res = await fetch(`${API_BASE_URL}/api/menu/delete/${id}`, {
+            const res = await apiFetch(`${API_BASE_URL}/api/v1/menu-items/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`

@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 // src/components/CartPage.jsx
 import React, { useEffect, useState } from "react";
 import { createOrder } from "../services/orderService";
@@ -104,8 +105,8 @@ function CartPage({ isOpen, onClose }) {
                     console.log("response = ", response);
 
                     try {
-                        const res = await fetch(
-                            `${API_BASE_URL}/api/payments/verify-payment`,
+                        const res = await apiFetch(
+                            `${API_BASE_URL}/api/v1/orders/${invoice_id}/payment-verifications`,
                             {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
@@ -132,10 +133,10 @@ function CartPage({ isOpen, onClose }) {
                 modal: {
                     ondismiss: async () => {
                         try {
-                            await fetch(`${API_BASE_URL}/api/payments/payment-failed`, {
-                                method: "POST",
+                            await apiFetch(`${API_BASE_URL}/api/v1/orders/${invoice_id}/payment`, {
+                                method: "PATCH",
                                 headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({ invoice_id }),
+                                body: JSON.stringify({ status: "failed" }),
                             });
                             toast.error("Payment failed / cancelled");
                         } catch (err) {
@@ -160,10 +161,10 @@ function CartPage({ isOpen, onClose }) {
             // Listen for failure event
             rzp.on("payment.failed", async () => {
                 try {
-                    await fetch(`${API_BASE_URL}/api/payments/payment-failed`, {
-                        method: "POST",
+                    await apiFetch(`${API_BASE_URL}/api/v1/orders/${invoice_id}/payment`, {
+                        method: "PATCH",
                         headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ invoice_id }),
+                        body: JSON.stringify({ status: "failed" }),
                     });
                     toast.error("Payment failed");
                 } catch (err) {

@@ -1,7 +1,8 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { API_BASE_URL } from "../config/api";
 async function MenuFetching() {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/menu`, {
+    const res = await apiFetch(`${API_BASE_URL}/api/v1/menu-items`, {
       method: "GET"
     });
 

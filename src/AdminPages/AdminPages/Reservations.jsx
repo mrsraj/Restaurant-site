@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../../API/scopedFetch";
 import { API_BASE_URL } from "../../config/api";
 
 import { useEffect, useState } from "react";
@@ -27,7 +28,7 @@ export default function Reservations() {
                 const userInfo = JSON.parse(localStorage.getItem("user_info"));
                 const token = userInfo?.token;
 
-                const res = await fetch(`${API_BASE_URL}/api/table/getreserv`, {
+                const res = await apiFetch(`${API_BASE_URL}/api/v1/reservations`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

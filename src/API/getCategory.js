@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { API_BASE_URL } from "../config/api";
 async function getCategory() {
     try {
@@ -5,8 +6,8 @@ async function getCategory() {
 
         const token = userInfo?.token;
 
-        const resp = await fetch(
-            `${API_BASE_URL}/api/menu/categories`,
+        const resp = await apiFetch(
+            `${API_BASE_URL}/api/v1/categories`,
             {
                 method: "GET",
                 headers: {

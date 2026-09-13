@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiFetching from "../API/api";
 import { useMyContext } from "../context/AppContext";
@@ -30,7 +30,7 @@ export default function Login() {
 
         try {
             const response = await ApiFetching(formData);
-            console.log("response =", response);
+
 
             if (response.error) {
                 setError(response.error);
@@ -38,19 +38,13 @@ export default function Login() {
             }
 
             setUser(response.role);
-            setAuth([]);
+            setAuth(response.role);
 
             //localStorage.setItem("user", response.role);
 
-            // Redirect based on role
-            if (response.role === "admin") {
-                // navigate("/admin/dashboard");
-                console.log("Hello");
-
-            } else {
-                navigate("/");
-            }
-
+            navigate(response.role === "kitchen" ? "/kitchen/orders" :
+                response.role === "super_admin" ? "/admin/staff" :
+                response.role === "restaurant_admin" ? "/admin/dashboard" : "/", { replace: true });
         } catch (err) {
             setError("Something went wrong, please try again.");
             console.error("Login error:", err);
@@ -60,24 +54,25 @@ export default function Login() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 bg-cover bg-center"
-            style={{ backgroundImage: "url('./images/bgimage.jpg')" }}
+        <div className="flex items-center justify-center min-h-[75vh] bg-[#f5f6f2] px-4 py-12"
+
         >
-            <div className="w-full max-w-md bg-white/20 rounded-lg shadow-md p-6">
-                <h2 className="text-2xl font-bold text-center text-black mb-6">
-                    LogIn
+            <div className="w-full max-w-md bg-white border border-[#e1e7e2] rounded-2xl shadow-sm p-8 sm:p-10">
+                <h2 className="text-3xl font-semibold tracking-tight text-[#1c302e] mb-3">
+                    Welcome back
                 </h2>
 
+                <p className="text-sm text-slate-500 leading-relaxed mb-8">Sign in to your account. We will open the workspace for your role automatically.</p>
                 <form onSubmit={handleSubmit} className="space-y-4">
 
                     <div>
-                        <label className="block mb-1 font-medium">Mobile No</label>
+                        <label className="block mb-1 font-medium">Mobile number</label>
                         <input
                             type="text"
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 rounded px-3 py-2"
+                            className="w-full border border-[#dce3da] bg-[#fcfdfa] rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-[#81bba1]"
                             required
                         />
                     </div>
@@ -89,7 +84,7 @@ export default function Login() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="w-full border border-gray-300 rounded px-3 py-2"
+                            className="w-full border border-[#dce3da] bg-[#fcfdfa] rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-[#81bba1]"
                             required
                         />
                     </div>
@@ -99,10 +94,10 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full py-2 rounded text-white transition ${loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+                        className={`w-full py-2 rounded text-white transition ${loading ? "bg-gray-400" : "bg-[#206c56] hover:bg-[#174f40]"
                             }`}
                     >
-                        {loading ? "Logging in..." : "LogIn"}
+                        {loading ? "Signing in…" : "Sign in"}
                     </button>
 
                 </form>

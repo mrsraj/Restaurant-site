@@ -1,150 +1,35 @@
-import { TrendingUp, ShoppingCart, DollarSign, Star, Calendar } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const Dashboard = () => {
-    // Dummy Data
-    const todayStats = {
-        orders: 45,
-        revenue: 12500,
-        mostOrdered: "Margherita Pizza",
-    };
-
-    const yesterdayStats = {
-        orders: 32,
-        revenue: 9800,
-        mostOrdered: "Veg Burger",
-    };
-
-    const weeklyRevenue = [
-        { day: "Mon", revenue: 8500 },
-        { day: "Tue", revenue: 9200 },
-        { day: "Wed", revenue: 11000 },
-        { day: "Thu", revenue: 7500 },
-        { day: "Fri", revenue: 12500 },
-        { day: "Sat", revenue: 14200 },
-        { day: "Sun", revenue: 13500 },
-    ];
-
-    const topItems = [
-        { id: 1, name: "Margherita Pizza", orders: 120 },
-        { id: 2, name: "Veg Burger", orders: 95 },
-        { id: 3, name: "Pasta Alfredo", orders: 78 },
-        { id: 4, name: "French Fries", orders: 64 },
-        { id: 5, name: "Paneer Tikka", orders: 50 },
-    ];
-
-    const reservations = [
-        { id: 1, customer: "Rahul Sharma", time: "7:30 PM", table: "Table 3" },
-        { id: 2, customer: "Neha Gupta", time: "8:00 PM", table: "Table 1" },
-        { id: 3, customer: "Amit Kumar", time: "9:00 PM", table: "Table 2" },
-    ];
-
-    return (
-        <div className="overflow-auto max-h-full">
-            <h2 className="text-2xl font-bold mb-1 text-center header_color p-2">📊 Admin Dashboard</h2>
-
-            {/* Today & Yesterday Overview */}
-            <div className="grid md:grid-cols-2 gap-2 mb-2">
-                {/* Today */}
-                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
-                    <h3 className="text-lg font-semibold mb-3">Today’s Overview</h3>
-                    <div className="grid grid-cols-3 text-center">
-                        <div>
-                            <ShoppingCart className="mx-auto text-blue-600" />
-                            <p className="text-xl font-bold">{todayStats.orders}</p>
-                            <p className="text-gray-500">Orders</p>
-                        </div>
-                        <div>
-                            <DollarSign className="mx-auto text-green-600" />
-                            <p className="text-xl font-bold">₹{todayStats.revenue}</p>
-                            <p className="text-gray-500">Revenue</p>
-                        </div>
-                        <div>
-                            <Star className="mx-auto text-yellow-500" />
-                            <p className="text-md font-bold">{todayStats.mostOrdered}</p>
-                            <p className="text-gray-500">Most Ordered</p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Yesterday */}
-                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
-                    <h3 className="text-lg font-semibold mb-3">Yesterday’s Overview</h3>
-                    <div className="grid grid-cols-3 text-center">
-                        <div>
-                            <ShoppingCart className="mx-auto text-blue-600" />
-                            <p className="text-xl font-bold">{yesterdayStats.orders}</p>
-                            <p className="text-gray-500">Orders</p>
-                        </div>
-                        <div>
-                            <DollarSign className="mx-auto text-green-600" />
-                            <p className="text-xl font-bold">₹{yesterdayStats.revenue}</p>
-                            <p className="text-gray-500">Revenue</p>
-                        </div>
-                        <div>
-                            <Star className="mx-auto text-yellow-500" />
-                            <p className="text-md font-bold">{yesterdayStats.mostOrdered}</p>
-                            <p className="text-gray-500">Most Ordered</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Revenue Chart & Top Items */}
-            <div className="grid md:grid-cols-2 gap-2 mb-2">
-                {/* Revenue Trend */}
-                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
-                    <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                        <TrendingUp className="text-green-600" /> Weekly Revenue
-                    </h3>
-                    <ResponsiveContainer width="100%" height={250}>
-                        <BarChart data={weeklyRevenue}>
-                            <XAxis dataKey="day" />
-                            <YAxis />
-                            <Tooltip />
-                            <Bar dataKey="revenue" fill="#3b82f6" radius={[5, 5, 0, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-
-                {/* Top Items */}
-                <div className="bg-gradient-to-r from-white to-[#1cd8cb] p-6 rounded-xl shadow">
-                    <h3 className="text-lg font-semibold mb-3">🔥 Top Selling Items</h3>
-                    <ul>
-                        {topItems.map((item) => (
-                            <li
-                                key={item.id}
-                                className="flex justify-between py-2 border-b last:border-none"
-                            >
-                                <span>{item.name}</span>
-                                <span className="font-bold">{item.orders} orders</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-
-            {/* Reservations */}
-            <div className="bg-gradient-to-r from-[#69c2ef] to-[#9eeee9] p-6 rounded-xl shadow">
-                <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                    <Calendar className="text-purple-600" /> Upcoming Reservations
-                </h3>
-                <ul>
-                    {reservations.map((r) => (
-                        <li
-                            key={r.id}
-                            className="flex justify-between py-2 border-b last:border-none"
-                        >
-                            <span>
-                                <strong>{r.customer}</strong> – {r.time}
-                            </span>
-                            <span className="text-gray-500">{r.table}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
-};
-
-export default Dashboard;
+﻿import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Store, Users, ShoppingBag, UtensilsCrossed, CalendarDays } from "lucide-react";
+import { useMyContext } from "../../context/AppContext";
+import { authRequest } from "../../API/api";
+export default function Dashboard() {
+  const { user } = useMyContext();
+  const system = user === "super_admin";
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    let active = true; setError(""); setData(null);
+    const paths = system ? ["/restaurants", "/staff", "/orders"] : ["/orders", "/menu-items", "/reservations"];
+    Promise.all(paths.map(path => authRequest("/api/v1" + path))).then(result => { if (active) setData(result); }).catch(e => { if (active) setError(e.message); });
+    return () => { active = false; };
+  }, [system, attempt]);
+  const orders = data ? (system ? data[2] : data[0]) : [];
+  const stats = system ? [
+    ["Restaurants", data?.[0]?.length, "Across your organization", Store],
+    ["Staff accounts", data?.[1]?.length, "Managers and kitchen staff", Users],
+    ["Open orders", orders.filter(o => ["pending", "accepted"].includes(o.order_status)).length, "Selected restaurant", ShoppingBag]
+  ] : [
+    ["Open orders", orders.filter(o => ["pending", "accepted"].includes(o.order_status)).length, "Waiting or in preparation", ShoppingBag],
+    ["Menu items", data?.[1]?.data?.length, "In your restaurant", UtensilsCrossed],
+    ["Reservations", data?.[2]?.length, "All recorded bookings", CalendarDays]
+  ];
+  return <div className="ws-stack">
+    <div className="ws-page-heading"><div><p className="ws-eyebrow">{system ? "THE BIG PICTURE" : "READY FOR SERVICE"}</p><h1>{system ? "Your restaurants, connected." : "A good service starts here."}</h1><p>{system ? "Manage your locations and people, then focus on the restaurant that needs you." : "Keep an eye on orders, your menu, and the guests coming through your doors."}</p></div><Link className="ws-button primary" to={system ? "/admin/staff" : "/admin/orders"}>{system ? "Manage restaurants" : "View orders"}<ArrowRight size={17} /></Link></div>
+    {error ? <div className="ws-alert" role="alert">{error}<button className="ws-button" onClick={() => setAttempt(n => n + 1)}>Try again</button></div> : <div className="ws-stats">{stats.map(([label, value, hint, Icon]) => <article className="ws-stat" key={label}><div><span>{label}</span><Icon size={20} /></div><strong>{data ? value ?? 0 : "—"}</strong><p>{data ? hint : "Loading overview…"}</p></article>)}</div>}
+    <div className="ws-dashboard-grid"><section className="ws-panel"><div className="ws-panel-heading"><div><h2>Orders needing attention</h2><p>{system ? "For the selected restaurant" : "Your current service queue"}</p></div><Link to="/admin/orders">View all <ArrowRight size={15} /></Link></div>
+      {!data ? <div className="ws-empty">{error ? "Order summary unavailable." : "Loading orders…"}</div> : !orders.some(o => ["pending", "accepted"].includes(o.order_status)) ? <div className="ws-empty"><ShoppingBag size={28} /><h3>All caught up</h3><p>New orders will appear here when they arrive.</p></div> : <div className="ws-order-list">{orders.filter(o => ["pending", "accepted"].includes(o.order_status)).slice(0, 6).map(o => <Link to="/admin/orders" key={o.invoice_id}><span className="ws-order-number">#{o.invoice_id}</span><div><strong>{o.username}</strong><small>{o.products?.reduce((n, p) => n + Number(p.quantity), 0) || 0} items</small></div><span className={"ws-badge " + o.order_status}>{o.order_status === "pending" ? "New order" : "In preparation"}</span><ArrowRight size={16} /></Link>)}</div>}
+    </section><section className="ws-panel ws-quick"><p className="ws-eyebrow">MAKE IT HAPPEN</p><h2>{system ? "Build your team." : "Set your kitchen up."}</h2><p>{system ? "Add a restaurant and give each manager the access they need." : "Give kitchen staff a focused workspace to handle incoming orders."}</p><Link to="/admin/staff" className="ws-button primary">Manage {system ? "people" : "kitchen team"}<ArrowRight size={16} /></Link><hr /><Link to="/admin/menu">Review your menu<ArrowRight size={16} /></Link><Link to="/admin/reservations">Check reservations<ArrowRight size={16} /></Link></section></div>
+  </div>;
+}

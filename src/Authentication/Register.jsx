@@ -1,3 +1,4 @@
+﻿import { apiFetch } from "../API/scopedFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -23,7 +24,7 @@ function Register() {
         const { confirmPassword, ...dataToSend } = formData;
 
         try {
-            const response = await fetch(`${API_BASE_URL}/auth/user/register`, {
+            const response = await apiFetch(`${API_BASE_URL}/api/v1/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
