@@ -1,4 +1,4 @@
-﻿import { apiFetch } from "../API/scopedFetch";
+﻿import { apiFetch } from "./api/scopedFetch";
 // src/services/orderService.js
 
 import { API_BASE_URL } from "../config/api";

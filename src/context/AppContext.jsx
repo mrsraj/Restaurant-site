@@ -1,5 +1,5 @@
 ﻿import { createContext, useContext, useEffect, useState } from "react";
-import { authRequest } from "../API/api";
+import { authRequest } from "../services/api/api";
 export const AppContext = createContext();
 export default function AppProvider({ children }) {
   const [reservations, setReservations] = useState([]);
