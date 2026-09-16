@@ -18,14 +18,14 @@ import ForgetPassword from "../Pages/auth/ForgetPassword";
 function CustomerRoutes() {
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="storefront flex flex-col min-h-screen">
 
             <Navbar />
             {/* <div className="fix bl-0">
                 <ChatApp />
             </div> */}
 
-            <main className="flex-grow bg-slate-300">
+            <main className="storefront-main flex-grow">
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/about" element={<About />} />

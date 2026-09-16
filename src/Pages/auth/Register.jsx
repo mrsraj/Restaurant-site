@@ -1,4 +1,5 @@
-﻿import { apiFetch } from "../../services/api/scopedFetch";
+import PasswordInput from "../../components/common/PasswordInput";
+import { apiFetch } from "../../services/api/scopedFetch";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -117,7 +118,7 @@ function Register() {
                     </div>
                     <div>
                         <label className="block mb-1 font-medium">Password</label>
-                        <input
+                        <PasswordInput
                             type="password"
                             name="password"
                             value={formData.password}
@@ -128,7 +129,7 @@ function Register() {
                     </div>
                     <div>
                         <label className="block mb-1 font-medium">Confirm Password</label>
-                        <input
+                        <PasswordInput
                             type="password"
                             name="confirmPassword"
                             value={formData.confirmPassword}

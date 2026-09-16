@@ -4,7 +4,7 @@
 
 
 *{
-    scrollbar-width:none;
+    scrollbar-width:thin;
 }
 
 @layer components {
@@ -12,3 +12,4 @@
     @apply bg-[#1cd8cb];
   }
 }
+

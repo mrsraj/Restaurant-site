@@ -1,4 +1,5 @@
-﻿import { useState, useEffect } from "react";
+import PasswordInput from "../../components/common/PasswordInput";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ApiFetching from "../../services/api/api";
 import { useMyContext } from "../../context/AppContext";
@@ -79,7 +80,7 @@ export default function Login() {
 
                     <div>
                         <label className="block mb-1 font-medium">Password</label>
-                        <input
+                        <PasswordInput
                             type="password"
                             name="password"
                             value={formData.password}

@@ -1,4 +1,5 @@
-﻿import { apiFetch } from "../../services/api/scopedFetch";
+import PasswordInput from "../../components/common/PasswordInput";
+import { apiFetch } from "../../services/api/scopedFetch";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { API_BASE_URL } from "../../config/api";
@@ -91,7 +92,7 @@ const VerifyOtp = () => {
                         required
                     />
 
-                    <input
+                    <PasswordInput
                         type="password"
                         placeholder="New Password"
                         className="w-full border p-2 mb-4 rounded"
