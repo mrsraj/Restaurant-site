@@ -1,9 +1,9 @@
-import { useState, useContext } from "react";
-import { AppContext } from "../context/AppContext";
+import { useState } from "react";
+import { useMyContext } from "../context/AppContext";
 import { FiUser, FiPhone, FiCalendar, FiUsers } from "react-icons/fi";
 
 export default function ReservationForm() {
-    const { addReservation } = useContext(AppContext);
+    const addReservation = useMyContext((state) => state.addReservation);
     const [form, setForm] = useState({
         name: "",
         phone: "",

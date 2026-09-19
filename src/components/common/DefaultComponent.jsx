@@ -5,7 +5,7 @@ import { useMyContext } from '../../context/AppContext';
 const NotFound = () => {
 
     const navigate = useNavigate();
-    const { user } = useMyContext();
+    const user = useMyContext((state) => state.user);
 
     // Redirect to home after some action (or immediately)
     useEffect(() => {

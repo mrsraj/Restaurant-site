@@ -1,10 +1,12 @@
 ﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { apiFetch, selectedRestaurant } from "../../services/api/scopedFetch";
+import { useMyContext } from "../../context/AppContext";
+import { apiFetch } from "../../services/api/scopedFetch";
 import { API_BASE_URL } from "../../config/api";
 const cache = new Map();
 export default function Home() {
-  const restaurantId = String(selectedRestaurant());
+  const selectedRestaurantId = useMyContext((state) => state.selectedRestaurantId);
+  const restaurantId = String(selectedRestaurantId || 1);
   const [data, setData] = useState(() => cache.get(restaurantId));
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);

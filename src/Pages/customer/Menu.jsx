@@ -15,7 +15,10 @@ export default function Menu() {
   const [openModal, setOpenModal] = useState(false); // ✅ for order status modal
   const [loading, setLoading] = useState(true);
 
-  const {invoiceId, setInvoiceId} = useMyContext();
+  const { invoiceId, setInvoiceId } = useMyContext((state) => ({
+    invoiceId: state.invoiceId,
+    setInvoiceId: state.setInvoiceId,
+  }));
   // Scroll to top on first render
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

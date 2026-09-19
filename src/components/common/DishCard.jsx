@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useMyContext } from "../../context/AppContext";
 export default function DishCard({ dish }) {
     const [cartQty, setCartQty] = useState(0);
-    const { Auth } = useMyContext();
+    const Auth = useMyContext((state) => state.Auth);
     const navigate = useNavigate();
 
     // On mount, read existing qty from localStorage

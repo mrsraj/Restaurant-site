@@ -5,7 +5,7 @@ import { authRequest } from "../../services/api/api";
 import { useMyContext } from "../../context/AppContext";
 import { roleLabels } from "../../config/roleLabels";
 export default function Staff() {
-  const { user } = useMyContext();
+  const user = useMyContext((state) => state.user);
   const system = user === "super_admin";
   const [restaurants, setRestaurants] = useState([]);
   const [staff, setStaff] = useState([]);

@@ -1,8 +1,10 @@
 import { subscribeToOrders } from "../../services/realtime/orderUpdates";
 import { useCallback, useEffect, useState } from "react";
 import { authRequest } from "../../services/api/api";
+import { useMyContext } from "../../context/AppContext";
 import OrderDetailsModal from "../../components/orders/OrderDetailsModal";
 export default function Orders() {
+  const selectedRestaurantId = useMyContext((state) => state.selectedRestaurantId);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(null);
@@ -14,7 +16,7 @@ export default function Orders() {
     const unsubscribe = subscribeToOrders(() => refresh().catch(e => setError(e.message)));
     const timer = setInterval(() => refresh().catch(e => setError(e.message)), 30000);
     return () => { clearInterval(timer); unsubscribe(); };
-  }, [refresh]);
+  }, [refresh, selectedRestaurantId]);
   async function update(id, fields) {
     setBusy(id); setError("");
     try { await authRequest(`/api/v1/orders/${id}`, { method: "PATCH", body: JSON.stringify(fields) }); await refresh(); }

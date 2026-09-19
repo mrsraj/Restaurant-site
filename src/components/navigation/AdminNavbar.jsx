@@ -5,7 +5,11 @@ import { useMyContext } from "../../context/AppContext";
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { user, setUser, setAuth } = useMyContext();
+    const { user, setUser, setAuth } = useMyContext((state) => ({
+        user: state.user,
+        setUser: state.setUser,
+        setAuth: state.setAuth,
+    }));
 
     const links = [
         { to: "/admin/staff", label: user === "super_admin" ? "Restaurants & staff" : "Kitchen staff", icon: <Settings size={18} /> },

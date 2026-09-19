@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useState } from "react";
+import { useMyContext } from "../../context/AppContext";
 
 function Contact() {
-    const { addMessage } = useContext(AppContext);
+    const addMessage = useMyContext((state) => state.addMessage);
 
     const [form, setForm] = useState({
         name: "",

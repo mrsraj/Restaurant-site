@@ -4,9 +4,11 @@ import { API_BASE_URL } from "../../config/api";
 import { useEffect, useState } from "react";
 import updateReserveStatus from "../../services/api/updatereserveStatus";
 import ModernLoader from "../../components/common/ModernLoader";
+import { useMyContext } from "../../context/AppContext";
 import { useLogout } from "../auth/LogOut";
 
 export default function Reservations() {
+    const selectedRestaurantId = useMyContext((state) => state.selectedRestaurantId);
     const [reservations, setReservations] = useState([]);
     const [refresh, setRefresh] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -54,7 +56,7 @@ export default function Reservations() {
         };
 
         fetchReservations();
-    }, [refresh]);
+    }, [logout, refresh, selectedRestaurantId]);
 
     // Update status
     const updateStatus = async (id, status) => {

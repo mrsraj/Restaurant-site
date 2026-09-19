@@ -7,7 +7,7 @@ import { useMyContext } from "../../context/AppContext";
 import { useLogout } from "../../Pages/auth/LogOut";
 export default function Navbar() {
  const [open, setOpen] = useState(false);
- const { user } = useMyContext(); const { logout } = useLogout();
+ const user = useMyContext((state) => state.user); const { logout } = useLogout();
  return <FixedHeader><header className="site-header"><div className="site-nav">
  <Link to="/home" className="site-brand" onClick={() => setOpen(false)}><span><UtensilsCrossed size={22} /></span>MyRestaurant<small>GOOD FOOD. GOOD COMPANY.</small></Link>
  <button className="site-menu-toggle" aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open} aria-controls="site-links" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>

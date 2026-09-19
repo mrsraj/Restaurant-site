@@ -5,7 +5,10 @@ import ApiFetching from "../../services/api/api";
 import { useMyContext } from "../../context/AppContext";
 
 export default function Login() {
-    const { setUser, setAuth } = useMyContext();
+    const { setUser, setAuth } = useMyContext((state) => ({
+        setUser: state.setUser,
+        setAuth: state.setAuth,
+    }));
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 

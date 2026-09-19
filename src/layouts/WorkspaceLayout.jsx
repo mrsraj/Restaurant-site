@@ -7,7 +7,12 @@ import "../styles/workspace.css";
 import { roleLabels } from "../config/roleLabels";
  
 export default function Workspace({ children }) {
-  const { user, setUser, setAuth, setInvoiceId } = useMyContext();
+  const { user, setUser, setAuth, setInvoiceId } = useMyContext((state) => ({
+    user: state.user,
+    setUser: state.setUser,
+    setAuth: state.setAuth,
+    setInvoiceId: state.setInvoiceId,
+  }));
   const navigate = useNavigate();
   let session; try { session = JSON.parse(localStorage.getItem("user_info") || "{}"); } catch { session = {}; }
   const kitchen = user === "kitchen";

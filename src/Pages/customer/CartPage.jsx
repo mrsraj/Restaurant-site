@@ -30,7 +30,7 @@ function CartPage({ isOpen, onClose }) {
     const [paymentMethod, setPaymentMethod] = useState("cash");
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-    const { setInvoiceId } = useMyContext();
+    const setInvoiceId = useMyContext((state) => state.setInvoiceId);
 
     useEffect(() => {
         if (isOpen) {

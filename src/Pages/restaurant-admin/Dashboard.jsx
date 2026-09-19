@@ -4,7 +4,10 @@ import { ArrowRight, Store, Users, ShoppingBag, UtensilsCrossed, CalendarDays } 
 import { useMyContext } from "../../context/AppContext";
 import { authRequest } from "../../services/api/api";
 export default function Dashboard() {
-  const { user } = useMyContext();
+  const { user, selectedRestaurantId } = useMyContext((state) => ({
+    user: state.user,
+    selectedRestaurantId: state.selectedRestaurantId,
+  }));
   const system = user === "super_admin";
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
@@ -14,7 +17,7 @@ export default function Dashboard() {
     const paths = system ? ["/restaurants", "/staff", "/orders"] : ["/orders", "/menu-items", "/reservations"];
     Promise.all(paths.map(path => authRequest("/api/v1" + path))).then(result => { if (active) setData(result); }).catch(e => { if (active) setError(e.message); });
     return () => { active = false; };
-  }, [system, attempt]);
+  }, [system, attempt, selectedRestaurantId]);
   const orders = data ? (system ? data[2] : data[0]) : [];
   const stats = system ? [
     ["Restaurants", data?.[0]?.length, "Across your organization", Store],

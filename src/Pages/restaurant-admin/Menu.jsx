@@ -6,12 +6,14 @@ import MenuFetching from "../../services/api/menuapi";
 import ModernLoader from "../../components/common/ModernLoader";
 import UpdateMenu from "../../components/menu/UpdateMenuForm";
 import AddMenuItemForm from "../../components/menu/AddMenuItem";
+import { useMyContext } from "../../context/AppContext";
 //Hooks
 import useAddMenuItem from "../../services/api/useAddMenuItem";
 import useDeleteMenuItem from "../../services/api/useDeleteMenuItem";
 
 
 const Menu = () => {
+    const selectedRestaurantId = useMyContext((state) => state.selectedRestaurantId);
     const [menuItems, setMenuItems] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -52,7 +54,7 @@ const Menu = () => {
         }
 
         fetchData();
-    }, [refresh]);
+    }, [refresh, selectedRestaurantId]);
 
     // Calculate percentage off (price = actual, discount = discounted)
     const getDiscountPercent = (actual, discounted) => {

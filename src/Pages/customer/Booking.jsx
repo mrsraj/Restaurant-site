@@ -9,7 +9,7 @@ export default function Booking() {
     const userInfo = JSON.parse(localStorage.getItem("user_info"));
     const user_id = userInfo?.user_id;
 
-    const { Auth } = useMyContext();
+    const Auth = useMyContext((state) => state.Auth);
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
