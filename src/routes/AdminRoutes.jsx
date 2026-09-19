@@ -10,8 +10,10 @@ import Gallery from "../Pages/restaurant-admin/Gallery";
 import Settings from "../Pages/restaurant-admin/Settings";
 import Workspace from "../layouts/WorkspaceLayout";
 import ProtectedRoute from "./ProtectedRoute";
+
 export default function AdminRoutes() {
   const user = useMyContext((state) => state.user);
+
   return <ProtectedRoute allowedRoles={["super_admin", "restaurant_admin"]}><Workspace><Routes>
     <Route path="/admin/dashboard" element={<Dashboard />} />
     <Route path="/admin/staff" element={user === "super_admin" ? <RestaurantsAndStaff /> : <KitchenStaff />} />
