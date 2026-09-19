@@ -22,7 +22,8 @@ function Register() {
     };
 
     async function handleApi() {
-        const { confirmPassword, ...dataToSend } = formData;
+        const dataToSend = { ...formData };
+        delete dataToSend.confirmPassword;
 
         try {
             const response = await apiFetch(`${API_BASE_URL}/api/v1/users`, {

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { replace, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { useMyContext } from "../../context/AppContext";

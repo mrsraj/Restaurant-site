@@ -25,8 +25,8 @@ const Menu = () => {
     const [openModal, setOpenModal] = useState(false);
 
     //Hooks
-    const { adding, addMenuItem } = useAddMenuItem(setMenuItems, setError, setOpenModal);
-    const { deleting, deleteMenuItem } = useDeleteMenuItem(setMenuItems, setError);
+    const { addMenuItem } = useAddMenuItem(setMenuItems, setError, setOpenModal);
+    const { deleteMenuItem } = useDeleteMenuItem(setMenuItems, setError);
 
     // Fetch menu data
     useEffect(() => {

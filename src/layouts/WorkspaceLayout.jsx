@@ -5,7 +5,7 @@ import { useMyContext } from "../context/AppContext";
 import RestaurantSelector from "../components/restaurants/RestaurantSelector";
 import "../styles/workspace.css";
 import { roleLabels } from "../config/roleLabels";
-// eslint-disable-next-line react/prop-types -- This layout accepts arbitrary React children.
+ 
 export default function Workspace({ children }) {
   const { user, setUser, setAuth, setInvoiceId } = useMyContext();
   const navigate = useNavigate();

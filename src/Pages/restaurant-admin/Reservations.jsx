@@ -4,7 +4,6 @@ import { API_BASE_URL } from "../../config/api";
 import { useEffect, useState } from "react";
 import updateReserveStatus from "../../services/api/updatereserveStatus";
 import ModernLoader from "../../components/common/ModernLoader";
-import { useNavigate } from "react-router-dom";
 import { useLogout } from "../auth/LogOut";
 
 export default function Reservations() {

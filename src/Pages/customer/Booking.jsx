@@ -6,7 +6,6 @@ import TableReservationAPI from "../../services/api/TableReservationAPI";
 import { useMyContext } from "../../context/AppContext";
 
 export default function Booking() {
-    const [error, setError] = useState('');
     const userInfo = JSON.parse(localStorage.getItem("user_info"));
     const user_id = userInfo?.user_id;
 

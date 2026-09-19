@@ -1,5 +1,3 @@
-import React from "react";
-
 const ModernLoader = () => {
     return (
         <div className="flex flex-col items-center justify-center py-10 col-span-full">

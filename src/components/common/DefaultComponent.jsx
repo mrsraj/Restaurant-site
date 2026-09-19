@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from '../../context/AppContext';
 
@@ -9,7 +8,7 @@ const NotFound = () => {
     const { user } = useMyContext();
 
     // Redirect to home after some action (or immediately)
-    React.useEffect(() => {
+    useEffect(() => {
         if (user.role === "admin") {
             navigate("/admin/dashboard", { replace: true });
         }

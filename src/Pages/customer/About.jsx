@@ -1,5 +1,5 @@
 import Carousel from "../../components/Carousel";
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 const ImageGallery = lazy(() => import("../../components/common/ImageGallery"));
 const Career = lazy(() => import("./Careers"));
 

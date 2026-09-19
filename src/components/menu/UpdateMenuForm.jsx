@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useUpdateMenuItem from "../../services/api/useUpdateMenuItem";
 import getCategory from "../../services/api/getCategory";
@@ -21,7 +21,7 @@ const UpdateMenu = ({ isOpen, onClose, editItem, refresh, setRefresh }) => {
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
 
-    const { updating, updateMenuItem } = useUpdateMenuItem(setError);
+    const { updateMenuItem } = useUpdateMenuItem(setError);
 
     /* Populate form for UPDATE only */
     useEffect(() => {
@@ -113,7 +113,7 @@ const UpdateMenu = ({ isOpen, onClose, editItem, refresh, setRefresh }) => {
         try {
             setLoading(true);
             const res = await updateMenuItem(editItem.id, data);
-            if (res.success = "true") {
+            if (res.success === "true" || res.success === true) {
                 setRefresh(!refresh);
                 onClose();
             }

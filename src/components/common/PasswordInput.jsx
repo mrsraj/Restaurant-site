@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-// eslint-disable-next-line react/prop-types -- Native input attributes are forwarded unchanged.
+ 
 export default function PasswordInput({ type = "password", id, ...props }) {
   const [visible, setVisible] = useState(false);
   const generatedId = useId();

@@ -1,6 +1,6 @@
 ﻿import { apiFetch } from "../../services/api/scopedFetch";
 // src/components/CartPage.jsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { createOrder } from "../../services/orderService";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../../config/api";
